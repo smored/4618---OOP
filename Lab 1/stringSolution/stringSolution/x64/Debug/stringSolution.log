@@ -1,0 +1,4 @@
+﻿  stringSolution.cpp
+C:\Users\xswor\OneDrive\Documents\BCIT\4000\4618 - OOP\Lab 1\stringSolution\stringSolution.cpp(17,13): error C2664: 'void xyz(int)': cannot convert argument 1 from 'size_t *' to 'int'
+C:\Users\xswor\OneDrive\Documents\BCIT\4000\4618 - OOP\Lab 1\stringSolution\stringSolution.cpp(17,9): message : There is no context in which this conversion is possible
+C:\Users\xswor\OneDrive\Documents\BCIT\4000\4618 - OOP\Lab 1\stringSolution\stringSolution.cpp(11,6): message : see declaration of 'xyz'
