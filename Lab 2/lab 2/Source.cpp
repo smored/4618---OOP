@@ -60,7 +60,7 @@ private:
             v_students.push_back(studentToChange);
         }
         else {
-            v_students.assign(index, studentToChange);
+            v_students.at(index) = studentToChange;
         }
     }
 
@@ -89,7 +89,6 @@ public:
         int edit;
         cin >> edit;
         edit--;
-        // Array is zero-indexed, thus, subtract one
         reqData(edit);
     }
     // Print Student Method
