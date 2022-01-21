@@ -13,3 +13,4 @@ Lab 2/lab 2/x64/Debug/lab 2.exe
 *.opendb
 *.db-wal
 *.db-shm
+*.tlog

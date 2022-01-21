@@ -2,7 +2,6 @@
 #include <string>
 using namespace std;
 
-// Student class
 class CStudent {
 public:
     string studentNum;
@@ -11,5 +10,8 @@ public:
     float midGrade;
     float finalExam;
     float finalGrade;
+
+    CStudent();
+    ~CStudent();
 };
 
