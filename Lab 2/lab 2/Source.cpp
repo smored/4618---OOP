@@ -10,6 +10,7 @@
 #include <regex>
 #include "CCourse.h"
 
+
 using namespace std;
 // How large to draw the asterix box
 #define BOX_SIZE 111
@@ -38,12 +39,15 @@ bool print_menu() {
         cout << "*";
     }
     // Ask for users input
-    cout << "\n(A)dd student\n(E)dit student\n(P)rint grades\n(D)elete grades\n(Q)uit\n\n\CMD> ";
-    char inputChar;
+    cout << "\n(A)dd student\n(E)dit student\n(P)rint grades\n(D)elete grades\n(S)ave\n(L)oad\n(Q)uit\n\n\CMD> ";
+    string inputChar;
     cin >> inputChar;
 
-    // What to do based on users input
-    switch (toupper(inputChar)) {
+    if (!regex_match(inputChar, regex("[AEPDSLQaepdslq]"))) return 1;
+    inputChar = toupper(inputChar[0]);
+
+    // what to do based on users input
+    switch (inputChar[0]) {
     case('A'):
         course.add_student();
         break;
@@ -55,6 +59,12 @@ bool print_menu() {
         break;
     case('D'):
         course.delete_student();
+        break;
+    case('S'):
+        course.save_file();
+        break;
+    case('L'):
+        course.load_file();
         break;
     case('Q'):
         // 0 is the condition to stop looping

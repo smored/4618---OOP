@@ -25,6 +25,9 @@ public:
     void edit_student();
     void print_student();
     void delete_student();
+    bool validStudent(string *studentIndex, int *edit);
+    void save_file();
+    void load_file();
     //vector<CStudent> m_getVStudent();
     //void m_setVStudent();
     
