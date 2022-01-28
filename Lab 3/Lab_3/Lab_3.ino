@@ -14,16 +14,18 @@ enum {DIGITAL = 0, ANALOG, SERVO};
 #define RGBLED_BLU_PIN 37
 
 // protocol CHANNEL integer indexes into array to select to the A? pin
-#define ANALOG_PINS 12
+#define ANALOG_PINS 16
 
-const int new A8 = 1;
-int A_PIN [] = {A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11};
+int A_PIN [] = {A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15};
 
 // Constants for the servo pins 
 #define SERVO_PORT0 19
 #define SERVO_PORT1 4
 #define SERVO_PORT2 5
 #define SERVO_PORT3 6
+
+// Period for flashing LED
+#define FLASH_PERIOD 1000
 
 Servo myservo[4];
 
@@ -72,7 +74,7 @@ void setup()
 
   Serial.print("\n////////////////////////////////////////////////////////////////////////////////////");
   Serial.print("\n// ELEX 4618 IO Communication for TM4C123G V3.0 Student");
-  Serial.print("\n// By: Kurt Querengesser, DATE");
+  Serial.print("\n// By: Kurt Querengesser, JAN 27 2022");
   Serial.print("\n// TM4C123G: Digital In/Out 1-40 on 4x 10 pin headers");
   Serial.print("\n// TM4C123G: Digital In 41 & 42 are PUSH1 and PUSH2 (TM4C123G)");
   Serial.print("\n// TM4C123G: Analog in A0 to A15 (0-15)");
@@ -92,6 +94,13 @@ void loop()
   // Hint: If you use DELAY your program will run slowly.
   // Hint: Use millis() to measure elapsed time and toggle LED
   /////////////////////////////////////////
+  static unsigned int tempTime = millis();
+  static bool ledState = false;
+  if (millis() - tempTime >= FLASH_PERIOD/2) {
+    ledState = !ledState;
+    digitalWrite(RED_LED, ledState);
+    tempTime = millis();
+  }
 
   // While there is data in the serial port buffer, continue to process
   while (Serial.available() > 0)
@@ -102,13 +111,14 @@ void loop()
     // If it's a COMMAND character (first character in ELEX4618 protocol) then move to next step
     if (ch == 'G' || ch == 'g' || ch == 'S' || ch == 's')
     {      
+      ch = toupper(ch); // makes letters caps for easier IF statements
       // Read the space delimited next value as an integer (TYPE from protocol)
       type = Serial.parseInt();
       // Read the space delimited next value as an integer (CHANNEL from protocol)
       channel = Serial.parseInt();
 
       // If a SET command then read the space delimited next value as an integer (VALUE from protocol)
-      if (ch == 'S' || ch == 's')
+      if (ch == 'S')
       {      
         value = Serial.parseInt();
       }
@@ -118,18 +128,37 @@ void loop()
       /////////////////////////////////////////
       // IF GET DO A DIGITAL READ and return the VALUE
       // IF SET DO A DIGITAL WRITE
+      if (type == DIGITAL) {
+        if (ch == 'G') {
+          value = digitalRead(channel);
+        } else if (ch == 'S') {
+          digitalWrite(channel, value);
+        }
+      }
       
       /////////////////////////////////////////
       // TODO: Get / Set Analog
       /////////////////////////////////////////
       // IF GET DO AN ANALOG READ and return the VALUE
       // IF SET DON'T DO ANYTHING (CONFLICT WITH SERVO)
+      if (type == ANALOG) {
+        if (ch == 'G') {
+          value = analogRead(channel);
+        }
+      }
       
       /////////////////////////////////////////
       // TODO: Get / Set Servo
       /////////////////////////////////////////
       // IF GET RETURN THE LAST SERVO VALUE SENT
       // IF SET SEND TO SERVO OBJECT
+      if (type == SERVO) {
+        if (ch == 'G') {
+          value = myservo[channel].read();
+        } else if (ch == 'S') {
+          myservo[channel].write(value);
+        }
+      }
 
       // Format and send response
       Serial.print ("A ");
