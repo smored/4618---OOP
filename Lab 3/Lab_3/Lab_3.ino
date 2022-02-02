@@ -102,6 +102,15 @@ void loop()
     tempTime = millis();
   }
 
+//  for (int digital_index = 1; digital_index <= 40; digital_index++)
+//  {
+//    Serial.print(digital_index);
+//        Serial.print("index ");
+//    Serial.print(analogRead(digital_index));
+//    Serial.println();
+//  }
+//delay(1000);
+
   // While there is data in the serial port buffer, continue to process
   while (Serial.available() > 0)
   {

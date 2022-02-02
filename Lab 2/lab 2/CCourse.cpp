@@ -96,10 +96,12 @@ using namespace std;
         if (v_students.size() <= 0) return;
         string input;
         int edit;
-        do {
-            cout << "Student to Delete:\n";
-            cin >> input;
-        } while (!validStudent(&input, &edit));
+        //do {
+            do {
+                cout << "Student to Delete:\n";
+                cin >> input;
+            } while (!validStudent(&input, &edit)); // do regex
+        //} while (stoi(input)<=0); // Check input is positive integer
         v_students.erase(v_students.begin() + edit - 1);
     }
 

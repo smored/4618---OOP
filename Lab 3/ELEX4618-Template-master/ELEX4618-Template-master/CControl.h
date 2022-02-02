@@ -18,7 +18,6 @@ class CControl
 private:
 	Serial _com;									    ///< private com object for use in serial communication
 public:
-	enum {DIGITAL, ANALOG, SERVO};						///< enum stores digital, analog, and servo values for serial comm
 
 	/** @brief Class Constructor
 	* @param no parameters
@@ -55,9 +54,15 @@ public:
 	* @return returns debounced digital button
 	**/
 	bool get_button(int channel);
-	/** @brief Gets analog as a percentage of maximum bits over serial
+	/** @brief Gets analog over serial
 	* @param channel: what pin to use
 	* @return returns an analog float value as a percentage of maximum
 	**/
-	float get_analog(int channel);
+	int get_analog(int channel);
+	/** @brief Method for setting servo and making my life easier
+	* @param channel: [0-4] Select which servo channel to use
+	* @param val: the angle to which the servo will approach
+	* @return no returns
+	**/
+	void set_servo(int setPos, int channel = 0);
 };

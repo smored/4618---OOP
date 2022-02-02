@@ -1,3 +1,3 @@
-﻿  CCourse.cpp
-C:\Users\xswor\OneDrive\Documents\BCIT\4000\4618 - OOP\Lab 2\lab 2\CCourse.cpp(62,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+﻿  Source.cpp
+C:\Users\xswor\OneDrive\Documents\BCIT\4000\4618 - OOP\Lab 2\lab 2\Source.cpp(47,13): warning C4129: 'C': unrecognized character escape sequence
   lab 2.vcxproj -> C:\Users\xswor\OneDrive\Documents\BCIT\4000\4618 - OOP\Lab 2\lab 2\x64\Debug\lab 2.exe

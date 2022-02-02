@@ -20,6 +20,9 @@
 #include "Server.h"
 #include "CControl.h"
 
+using namespace std;
+enum { DIGITAL, ANALOG, SERVO };
+
 // Must include Windows.h after Winsock2.h, so Serial must be included after Client/Server
 #include "Serial.h" 
 
@@ -273,6 +276,31 @@ void print_menu()
 
 int main(int argc, char* argv[])
 {
+    CControl comms;
+    comms.init_com(4);
+    
+    int counter = 0;
+    while (true) {
+        
+    }
+
+    // Analog Joystick Test
+    std::cout << comms.get_analog(26) << endl;
+    // Digital IO test
+    int input;
+    cout << "DIGITAL TEST: CH? = ";
+    cin >> input;
+    cout << endl;
+    Sleep(10);
+    comms.set_data(DIGITAL, 36, input);
+    // Debounced pushbutton test
+    if (comms.get_button(33)) counter++;
+    cout << counter << endl;
+    // Servo cycle test
+    comms.set_servo(179);
+    Sleep(1000);
+    comms.set_servo(1);
+    Sleep(1000);
 
 	/*int cmd = -1;
 	do

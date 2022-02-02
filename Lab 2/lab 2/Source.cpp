@@ -23,7 +23,12 @@ CCourse course;
 // Main loop
 int main() {
     // Run print menu as long as user doesn't quit
-    while (print_menu());
+    int k = 27, m = 987654321, n = -4321;
+    cout << setw(9);
+    cout << setfill(' ');
+    cout << k << m << n;
+    //cout << fixed << setprecision(5) << a << ' ' << b << ' ' << c
+    //while (print_menu());
     return 0;
 }
 
