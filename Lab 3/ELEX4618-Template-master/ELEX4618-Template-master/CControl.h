@@ -34,7 +34,7 @@ public:
 	* @param comport: What com port to initialize
 	* @return no returns
 	**/
-	void init_com(int comport);					
+	void init_com(int default_port = -1);
 	/** @brief reads data from serial port
 	* @param type: what mode to operate
 	* @param channel: which channel to use

@@ -18,11 +18,33 @@ CControl::~CControl() {
 
 }
 
-void CControl::init_com(int comport) {
-	string strport = "COM";
-	strport += to_string(comport);
-	_com.open(strport);
-	std::cout << "Opening Port " << strport << endl;
+void CControl::init_com(int overrideport) {
+	const string strport = "COM";
+
+	if (overrideport == -1) {
+		int comport;
+		// Loop through all comm posibilities, check if open and then list available ports to choose from
+		const int MAX_PORTS = 50;
+		for (comport = 0; comport < MAX_PORTS; comport++) {
+			_com.open(strport + to_string(comport));
+			if (set_data(0, 37, 1)) {
+				cout << "COM Port is open: " << comport << endl;
+				break;
+			}
+			_com.flush();
+		}
+
+		if (comport >= MAX_PORTS) {
+			cout << "Error: Could not find COM Port" << endl;
+		}
+		else {
+			_com.open(strport + to_string(comport));
+		}
+	}
+	else {
+		_com.open(strport + to_string(overrideport));
+		std::cout << "Opening Port " << strport + to_string(overrideport) << endl;
+	}
 }
 
 bool CControl::get_data(int type, int channel, int& result) {
@@ -49,6 +71,8 @@ bool CControl::get_data(int type, int channel, int& result) {
 		}
 	}
 
+	if (rx_str[rx_str.length() - 1] == '\n') rx_str.erase(rx_str.length() - 1);
+
 	result = stoi(rx_str);
 	
 	return true;
@@ -58,6 +82,18 @@ bool CControl::set_data(int type, int channel, int val) {
 	string tx_str = "S ";
 	tx_str += to_string(type) + " " + to_string(channel) + " " + to_string(val) + "\n";
 	_com.write(tx_str.c_str(), tx_str.length());
+
+	// Check if data is acknowledged
+	std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
+	std::chrono::time_point<std::chrono::system_clock> now = std::chrono::system_clock::now();
+
+	char buff[2]; buff[0] = 0;
+	while (std::chrono::duration_cast<std::chrono::milliseconds>(now - start).count() <= 5) {
+		if (_com.read(buff, 1) > 0) { 
+			return true;
+		}
+		now = std::chrono::system_clock::now();
+	}
 	return false;
 }
 
