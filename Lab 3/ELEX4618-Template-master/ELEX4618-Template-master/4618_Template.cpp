@@ -331,13 +331,13 @@ void joystick_demo() {
     float xscale, yscale;
     do {
         yval = comms.get_analog(26);
-        yscale = (float)yval*100 / MAXANALOG;
+        yscale = (float)yval * 100 / MAXANALOG;
         xval = comms.get_analog(2);
         xscale = (float)xval * 100 / MAXANALOG;
         //std::cout << setprecision(2);
         std::cout << "Y AXIS: " << yval << "(" << yscale << "%)" << "\t";
         std::cout << "X AXIS: " << xval << "(" << xscale << "%)" << endl;
-    } while (1);
+    } while (!GetAsyncKeyState(VK_ESCAPE));
 }
 
 void DIO_demo() {
@@ -346,10 +346,10 @@ void DIO_demo() {
     do {
         cout << "DIGITAL TEST: CH? = ";
         cin >> input;
-        //if (input < 0) return;
+        if (input < 0) return;
         cout << endl;
         comms.set_data(DIGITAL, 37, input);
-    } while (1);
+    } while (!GetAsyncKeyState(VK_ESCAPE));
 }
 
 void button_demo() {
@@ -358,7 +358,7 @@ void button_demo() {
     do {
         if (comms.get_button(33)) counter++;
         cout << counter << endl;
-    } while (1);
+    } while (!GetAsyncKeyState(VK_ESCAPE));
 }
 
 void servo_demo() {
@@ -368,6 +368,6 @@ void servo_demo() {
         Sleep(1000);
         comms.set_servo(1);
         Sleep(1000);
-    } while (1);
+    } while (!GetAsyncKeyState(VK_ESCAPE));
 
 }
