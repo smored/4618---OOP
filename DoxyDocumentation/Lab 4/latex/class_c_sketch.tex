@@ -1,0 +1,87 @@
+\hypertarget{class_c_sketch}{}\doxysection{CSketch Class Reference}
+\label{class_c_sketch}\index{CSketch@{CSketch}}
+Inheritance diagram for CSketch\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_c_sketch}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_c_sketch_af198bc59df86e3c770361e7082533662}\label{class_c_sketch_af198bc59df86e3c770361e7082533662}} 
+{\bfseries CSketch} (cv\+::\+Size size, int comport)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_c_sketch_a8b6185fa49d7f9d8909dcffde3cdec3d}{update}} () override
+\begin{DoxyCompactList}\small\item\em virtual update method template \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_sketch_a9db432ca87bbd8c8dfc0b38f274640f6}{draw}} () override
+\begin{DoxyCompactList}\small\item\em virtual draw method template \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_c_sketch_aa472250fb95cbf55b554587c9a3fcf18}\label{class_c_sketch_aa472250fb95cbf55b554587c9a3fcf18}} 
+cv\+::\+Point \mbox{\hyperlink{class_c_sketch_aa472250fb95cbf55b554587c9a3fcf18}{stickval}}
+\begin{DoxyCompactList}\small\item\em variable used for storing the position of the joystick \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_sketch_ae5a177e79da339d956667ee765eff875}\label{class_c_sketch_ae5a177e79da339d956667ee765eff875}} 
+cv\+::\+Scalar \mbox{\hyperlink{class_c_sketch_ae5a177e79da339d956667ee765eff875}{colour}} = cv\+::\+Scalar(255, 255, 255)
+\begin{DoxyCompactList}\small\item\em variable used for storing current colour of cursor \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_c_sketch_af3c5faaa181748ce4cf09f250eadb6c3}\label{class_c_sketch_af3c5faaa181748ce4cf09f250eadb6c3}} 
+const cv\+::\+Scalar \mbox{\hyperlink{class_c_sketch_af3c5faaa181748ce4cf09f250eadb6c3}{colour\+Arr}} \mbox{[}3\mbox{]} = \{cv\+::\+Scalar(255, 0, 0), cv\+::\+Scalar(0, 255, 0), cv\+::\+Scalar(0, 0, 255)\}
+\begin{DoxyCompactList}\small\item\em constant array stores all colour values to cycle through \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_c_sketch_a9db432ca87bbd8c8dfc0b38f274640f6}\label{class_c_sketch_a9db432ca87bbd8c8dfc0b38f274640f6}} 
+\index{CSketch@{CSketch}!draw@{draw}}
+\index{draw@{draw}!CSketch@{CSketch}}
+\doxysubsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily void CSketch\+::draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+virtual draw method template 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parameters \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_c_base4618_a853327d563d064bb31db241861c4d291}{CBase4618}}.
+
+\mbox{\Hypertarget{class_c_sketch_a8b6185fa49d7f9d8909dcffde3cdec3d}\label{class_c_sketch_a8b6185fa49d7f9d8909dcffde3cdec3d}} 
+\index{CSketch@{CSketch}!update@{update}}
+\index{update@{update}!CSketch@{CSketch}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void CSketch\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+virtual update method template 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parameters \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_c_base4618_ae1ac81eaa56ded6600262c361f723cb8}{CBase4618}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+CSketch.\+h\item 
+CSketch.\+cpp\end{DoxyCompactItemize}

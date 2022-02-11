@@ -1,0 +1,232 @@
+\hypertarget{class_c_control}{}\doxysection{CControl Class Reference}
+\label{class_c_control}\index{CControl@{CControl}}
+
+
+Methods for communcations with the MSP432.  
+
+
+
+
+{\ttfamily \#include $<$CControl.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_c_control_a6498500ff403327b5770a3acebed1d93}{CControl}} ()
+\begin{DoxyCompactList}\small\item\em Class Constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_c_control_ab2ae420ef75b010c0c9078e597781105}{$\sim$\+CControl}} ()
+\begin{DoxyCompactList}\small\item\em Class Deconstructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_control_a173c2d71ea752733aa2ce95320996adc}{init\+\_\+com}} (int port)
+\begin{DoxyCompactList}\small\item\em initializes the com port \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_control_a7589c187aacdc1305a8c97c4d2ae1dd6}{init\+\_\+com}} ()
+\begin{DoxyCompactList}\small\item\em initializes the com port automatically by running through all available comm ports \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_c_control_a0bad8e51e54cb6f1e2a7b51d3a3940d3}{get\+\_\+data}} (int type, int channel, int \&result)
+\begin{DoxyCompactList}\small\item\em reads data from serial port \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_c_control_a13f557815616ef66a8f5dd4b725d8c32}{set\+\_\+data}} (int type, int channel, int val)
+\begin{DoxyCompactList}\small\item\em sends data across serial port \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_c_control_aae08c07c6868f592f30b3dba97f1fa34}{get\+\_\+button}} (int channel)
+\begin{DoxyCompactList}\small\item\em debounces a button on specified channel \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_c_control_ad81764ddc35d727dd2602b07e69c2299}{get\+\_\+analog}} (int channel)
+\begin{DoxyCompactList}\small\item\em Gets analog over serial. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_c_control_aa43f2173d45c19be77cb559fe7e50781}{set\+\_\+servo}} (int set\+Pos, int channel=0)
+\begin{DoxyCompactList}\small\item\em Method for setting servo and making my life easier. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_c_control_aef87fbcfdcd323b1fdcf41be993e006c}\label{class_c_control_aef87fbcfdcd323b1fdcf41be993e006c}} 
+\mbox{\hyperlink{class_serial}{Serial}} \mbox{\hyperlink{class_c_control_aef87fbcfdcd323b1fdcf41be993e006c}{\+\_\+com}}
+\begin{DoxyCompactList}\small\item\em private com object for use in serial communication \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Methods for communcations with the MSP432. 
+
+\mbox{\hyperlink{_serial_8h_source}{Serial.\+h}}
+
+This class uses a com port to emulate serial communcation with the MSP432 using the \mbox{\hyperlink{_serial_8h_source}{Serial.\+h}} library with the OOP 4618 serial protocol
+
+\begin{DoxyAuthor}{Author}
+Kurt Querengesser
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 -- 28 Jan 2022 
+\end{DoxyVersion}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_c_control_a6498500ff403327b5770a3acebed1d93}\label{class_c_control_a6498500ff403327b5770a3acebed1d93}} 
+\index{CControl@{CControl}!CControl@{CControl}}
+\index{CControl@{CControl}!CControl@{CControl}}
+\doxysubsubsection{\texorpdfstring{CControl()}{CControl()}}
+{\footnotesize\ttfamily CControl\+::\+CControl (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Class Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parameters \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+no returns 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_control_ab2ae420ef75b010c0c9078e597781105}\label{class_c_control_ab2ae420ef75b010c0c9078e597781105}} 
+\index{CControl@{CControl}!````~CControl@{$\sim$CControl}}
+\index{````~CControl@{$\sim$CControl}!CControl@{CControl}}
+\doxysubsubsection{\texorpdfstring{$\sim$CControl()}{~CControl()}}
+{\footnotesize\ttfamily CControl\+::$\sim$\+CControl (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Class Deconstructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parameters \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+no returns 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_c_control_ad81764ddc35d727dd2602b07e69c2299}\label{class_c_control_ad81764ddc35d727dd2602b07e69c2299}} 
+\index{CControl@{CControl}!get\_analog@{get\_analog}}
+\index{get\_analog@{get\_analog}!CControl@{CControl}}
+\doxysubsubsection{\texorpdfstring{get\_analog()}{get\_analog()}}
+{\footnotesize\ttfamily float CControl\+::get\+\_\+analog (\begin{DoxyParamCaption}\item[{int}]{channel }\end{DoxyParamCaption})}
+
+
+
+Gets analog over serial. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em channel} & what pin to use \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns an analog float value as a percentage of maximum 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_control_aae08c07c6868f592f30b3dba97f1fa34}\label{class_c_control_aae08c07c6868f592f30b3dba97f1fa34}} 
+\index{CControl@{CControl}!get\_button@{get\_button}}
+\index{get\_button@{get\_button}!CControl@{CControl}}
+\doxysubsubsection{\texorpdfstring{get\_button()}{get\_button()}}
+{\footnotesize\ttfamily bool CControl\+::get\+\_\+button (\begin{DoxyParamCaption}\item[{int}]{channel }\end{DoxyParamCaption})}
+
+
+
+debounces a button on specified channel 
+
+
+\begin{DoxyParams}{Parameters}
+{\em specify} & channel button is on \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns debounced digital button 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_control_a0bad8e51e54cb6f1e2a7b51d3a3940d3}\label{class_c_control_a0bad8e51e54cb6f1e2a7b51d3a3940d3}} 
+\index{CControl@{CControl}!get\_data@{get\_data}}
+\index{get\_data@{get\_data}!CControl@{CControl}}
+\doxysubsubsection{\texorpdfstring{get\_data()}{get\_data()}}
+{\footnotesize\ttfamily bool CControl\+::get\+\_\+data (\begin{DoxyParamCaption}\item[{int}]{type,  }\item[{int}]{channel,  }\item[{int \&}]{result }\end{DoxyParamCaption})}
+
+
+
+reads data from serial port 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & what mode to operate \\
+\hline
+{\em channel} & which channel to use \\
+\hline
+{\em result} & a pointer to the result to which the value will be assigned \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns true if successful 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_control_a7589c187aacdc1305a8c97c4d2ae1dd6}\label{class_c_control_a7589c187aacdc1305a8c97c4d2ae1dd6}} 
+\index{CControl@{CControl}!init\_com@{init\_com}}
+\index{init\_com@{init\_com}!CControl@{CControl}}
+\doxysubsubsection{\texorpdfstring{init\_com()}{init\_com()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void CControl\+::init\+\_\+com (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+initializes the com port automatically by running through all available comm ports 
+
+@override \begin{DoxyReturn}{Returns}
+no returns 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_control_a173c2d71ea752733aa2ce95320996adc}\label{class_c_control_a173c2d71ea752733aa2ce95320996adc}} 
+\index{CControl@{CControl}!init\_com@{init\_com}}
+\index{init\_com@{init\_com}!CControl@{CControl}}
+\doxysubsubsection{\texorpdfstring{init\_com()}{init\_com()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void CControl\+::init\+\_\+com (\begin{DoxyParamCaption}\item[{int}]{port }\end{DoxyParamCaption})}
+
+
+
+initializes the com port 
+
+
+\begin{DoxyParams}{Parameters}
+{\em comport} & What com port to initialize \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+no returns 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_control_a13f557815616ef66a8f5dd4b725d8c32}\label{class_c_control_a13f557815616ef66a8f5dd4b725d8c32}} 
+\index{CControl@{CControl}!set\_data@{set\_data}}
+\index{set\_data@{set\_data}!CControl@{CControl}}
+\doxysubsubsection{\texorpdfstring{set\_data()}{set\_data()}}
+{\footnotesize\ttfamily bool CControl\+::set\+\_\+data (\begin{DoxyParamCaption}\item[{int}]{type,  }\item[{int}]{channel,  }\item[{int}]{val }\end{DoxyParamCaption})}
+
+
+
+sends data across serial port 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & what mode to operate \\
+\hline
+{\em channel} & which channel to use \\
+\hline
+{\em val} & what value to set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns true if successful 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_c_control_aa43f2173d45c19be77cb559fe7e50781}\label{class_c_control_aa43f2173d45c19be77cb559fe7e50781}} 
+\index{CControl@{CControl}!set\_servo@{set\_servo}}
+\index{set\_servo@{set\_servo}!CControl@{CControl}}
+\doxysubsubsection{\texorpdfstring{set\_servo()}{set\_servo()}}
+{\footnotesize\ttfamily void CControl\+::set\+\_\+servo (\begin{DoxyParamCaption}\item[{int}]{set\+Pos,  }\item[{int}]{channel = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Method for setting servo and making my life easier. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em channel} & \mbox{[}0-\/4\mbox{]} Select which servo channel to use \\
+\hline
+{\em val} & the angle to which the servo will approach \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+no returns 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+CControl.\+h\item 
+CControl.\+cpp\end{DoxyCompactItemize}

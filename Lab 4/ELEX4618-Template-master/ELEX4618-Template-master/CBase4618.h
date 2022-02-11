@@ -3,9 +3,9 @@
 #include "CControl.h"
 
 class CBase4618 {
-private:
-	CControl control;
-	cv::Mat _canvas;
+protected:
+	CControl control; ///< control object for handling all communications with uC
+	cv::Mat _canvas;  ///<
 public:
 	/** @brief Class Constructor
 	* @param no parameters

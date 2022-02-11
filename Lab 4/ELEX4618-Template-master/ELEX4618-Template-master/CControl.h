@@ -16,7 +16,7 @@
 class CControl
 {
 private:
-	Serial _com;									    ///< private com object for use in serial communication
+	Serial _com; ///< private com object for use in serial communication
 public:
 
 	/** @brief Class Constructor
@@ -34,7 +34,12 @@ public:
 	* @param comport: What com port to initialize
 	* @return no returns
 	**/
-	void init_com(int default_port = -1);
+	void init_com(int port);
+	/** @override
+	* @brief initializes the com port automatically by running through all available comm ports
+	* @return no returns
+	**/
+	void init_com();
 	/** @brief reads data from serial port
 	* @param type: what mode to operate
 	* @param channel: which channel to use
