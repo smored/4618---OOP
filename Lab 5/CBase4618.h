@@ -15,6 +15,7 @@ class CBase4618 {
 protected:
 	CControl control; ///< control object for handling all communications with uC
 	cv::Mat _canvas;  ///< Mat object for drawing on and updating to screen
+	const cv::Scalar WHITE = cv::Scalar(255, 255, 255); ///< Default white colour scalar
 public:
 	/** @brief Class Constructor
 	* @param no parameters

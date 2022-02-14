@@ -20,6 +20,7 @@
 #include "Server.h"
 #include "CControl.h"
 #include "CSketch.h"
+#include "Pong.h"
 
 using namespace std;
 enum { DIGITAL, ANALOG, SERVO };
@@ -291,6 +292,8 @@ void lab3_demo() {
 
 int main(int argc, char* argv[])
 {
-    CSketch sketch(cv::Size(2000, 1000), 7);
-    sketch.run();
+    Pong pong(cv::Size(2000, 1000), 7);
+    pong.run();
+    //CSketch csketch(cv::Size(2000, 1000), 7);
+    //csketch.run();
 }

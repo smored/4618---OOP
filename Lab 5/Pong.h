@@ -1,6 +1,12 @@
 #pragma once
 
 #include "CBase4618.h"
+#include "Ball.h"
+#include "Paddle.h"
+
+#define BALLRADIUS 50
+#define PADDLEX 50
+#define PADDLEY 100
 
 /** CSketch.h
  *
@@ -13,8 +19,9 @@
  */
 class Pong : public CBase4618 {
 private:
-	cv::Point stickval; ///< variable used for storing the position of the joystick
-
+	Ball ball = Ball(BALLRADIUS);
+	Paddle AIpaddle = Paddle(AI, cv::Rect(100, 100, PADDLEX, PADDLEY));
+	Paddle Playerpaddle = Paddle(PLAYER, cv::Rect(0, 0, PADDLEX, PADDLEY));
 	/* @brief inherits CBase4618's update method to update internal variables of CSketch
 	* @param: no parameters
 	* @return void
@@ -27,6 +34,7 @@ private:
 	*/
 	void draw() override;
 
+	void resetGame();
 public:
 	/* @brief CSketch constructor initializes canvas size and serial port
 	* @param size: a cv size object to specify how big to make the canvas
