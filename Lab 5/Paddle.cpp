@@ -29,29 +29,28 @@ void Paddle::setSize(cv::Point canvasSize) {
 void Paddle::updatePaddle(int velocity) {
 	if (this->type == AI) {
 		//this->paddleSize.y = velocity; // Non-winnable game
+
 		if (paddleSize.y > velocity) {
 
-				paddleSize.y -= 4;
-	
+			paddleSize.y -= 6*6;
+
 		}
 		else if (paddleSize.y < velocity) {
 
-				paddleSize.y += 4;
+			paddleSize.y += 6*6;
 
 		}
+
 	}
 	else if (this->type == PLAYER) {
-		if (paddleSize.y + velocity + paddleSize.height >= canvasSize.y || paddleSize.y + velocity <= 0) {
-
-		}
-		else {
+		if (!(paddleSize.y + velocity + paddleSize.height >= canvasSize.y || paddleSize.y + velocity <= 0)) {
 			paddleSize.y += velocity;
 		}
 	}
 }
 
 void Paddle::resetPaddle() {
-	paddleSize.y = canvasSize.y / 2 + paddleSize.y / 2;
+	paddleSize.y = canvasSize.y / 2;
 }
 
 cv::Rect Paddle::getRect() {

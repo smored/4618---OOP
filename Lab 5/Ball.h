@@ -4,7 +4,7 @@ class Ball
 {
 private:
 	cv::Point position = cv::Point(0, 0);
-	cv::Point velocity = cv::Point(5, 5);
+	cv::Point velocity = cv::Point(6*5, 6*5);
 	cv::Point acceleration = cv::Point(0,0);
 	cv::Point canvasSize = cv::Point(0, 0);
 	int size = 0;

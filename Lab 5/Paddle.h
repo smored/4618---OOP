@@ -7,7 +7,7 @@ class Paddle
 private:
 	//cv::Point position = cv::Point(0, 0);
 	cv::Point canvasSize = cv::Point(0, 0);
-	cv::Rect paddleSize = cv::Rect(0,0,10,50);
+	cv::Rect paddleSize;
 	bool type = AI;
 public:
 

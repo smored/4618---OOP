@@ -292,6 +292,8 @@ void lab3_demo() {
 
 int main(int argc, char* argv[])
 {
+    /*std::thread updateThread
+        std::thread runThread*/
     Pong pong(cv::Size(2000, 1000), 7);
     pong.run();
     //CSketch csketch(cv::Size(2000, 1000), 7);

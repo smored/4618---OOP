@@ -17,17 +17,20 @@ void Ball::setSize(cv::Point canvasSize) {
 
 std::vector<int> Ball::updateBall(cv::Rect playerRect, cv::Rect aiRect) {
 	// Check if going to collide with paddle
-	if (velocity.x + position.x <= playerRect.x + playerRect.width + size) {
-		if (velocity.y + position.y >= playerRect.y && velocity.y + position.y <= playerRect.y + playerRect.height) {
+	// Left side
+	cv::Point nextPos = position + velocity;
+	if (nextPos.x - size <= playerRect.x + playerRect.width) {
+		if (nextPos.y + size >= playerRect.y && nextPos.y - size <= playerRect.y + playerRect.height) {
+			reflect(X_AXIS);
+		}
+	}
+	// Right side
+	if (nextPos.x + size >= aiRect.x) {
+		if (nextPos.y + size >= aiRect.y && nextPos.y - size <= aiRect.y + aiRect.height) {
 			reflect(X_AXIS);
 		}
 	}
 
-	if (velocity.x + position.x >= aiRect.x - size) {
-		if (velocity.y + position.y >= aiRect.y && velocity.y + position.y <= aiRect.y + aiRect.height) {
-			reflect(X_AXIS);
-		}
-	}
 
 	// Check if going to collide with wall
 	if (velocity.y + position.y - this->size <= 0 || velocity.y + position.y + this->size >= canvasSize.y) {
@@ -52,6 +55,7 @@ std::vector<int> Ball::updateBall(cv::Rect playerRect, cv::Rect aiRect) {
 
 void Ball::resetBall() {
 	position = canvasSize / 2;
+	if (cv::getTickCount() % 2) velocity *= -1;
 }
 
 cv::Point Ball::getPos() {
@@ -60,9 +64,9 @@ cv::Point Ball::getPos() {
 
 void Ball::reflect(bool axis) {
 	if (axis == X_AXIS) {
-		velocity.x = -velocity.x;
+		velocity.x *= -1;
 	}
 	else {
-		velocity.y = -velocity.y;
+		velocity.y *= -1;
 	}
 }

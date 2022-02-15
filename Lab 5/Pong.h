@@ -6,7 +6,7 @@
 
 #define BALLRADIUS 50
 #define PADDLEX 50
-#define PADDLEY 100
+#define PADDLEY 200
 
 /** CSketch.h
  *

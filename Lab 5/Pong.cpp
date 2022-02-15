@@ -7,16 +7,17 @@ const cv::Rect RECTANGLE = cv::Rect(0, 0, 100, 100);
 #define Y_JOYSTICK 26
 #define S1 33
 #define S2 32
+#define FPS 30
 
 Pong::Pong(cv::Size size, int comport) {
-	control.init_com(comport);
+	control.init_com();
 	_canvas = cv::Mat::zeros(size, CV_8UC3);
 	ball.setSize(_canvas.size());
-	ball.resetBall();
 	AIpaddle.setSize(_canvas.size());
 	AIpaddle.resetPaddle();
 	Playerpaddle.setSize(_canvas.size());
 	Playerpaddle.resetPaddle();
+	resetGame();
 }
 
 Pong::~Pong() {
@@ -29,8 +30,17 @@ void Pong::update() {
 		return;
 	}
 
+	// Set Target FPS
+	auto end_time = std::chrono::system_clock::now() + std::chrono::milliseconds(1000/FPS);
+
+	// Get FPS
+	static int time1, time2;
+	float fps = 1.0f/((time2 - time1) / cv::getTickFrequency());
+	time1 = cv::getTickCount();
+	std::cout << "FPS: " << fps << std::endl;
+
 	// Player Paddle controlled by joystick
-	Playerpaddle.updatePaddle((control.get_analog(Y_JOYSTICK)*-100 + 50)/5);
+	Playerpaddle.updatePaddle((control.get_analog(Y_JOYSTICK)*-100 + 50));
 	cv::Rect playerRect = Playerpaddle.getRect();
 
 	// AI chases ball y position
@@ -43,8 +53,8 @@ void Pong::update() {
 
 	static std::vector<int> oogabooga = score;
 
-	//if (oogabooga[0] < score[0] || oogabooga[1] < score[1]) resetGame();
-	//oogabooga = score;
+	if (oogabooga[0] < score[0] || oogabooga[1] < score[1]) resetGame();
+	oogabooga = score;
 
 
 	// Rendering
@@ -55,6 +65,10 @@ void Pong::update() {
 	cv::rectangle(_canvas, Playerpaddle.getRect(), WHITE); // Draw player paddle
 	cv::rectangle(_canvas, AIpaddle.getRect(), WHITE); // Draw AI paddle
 	cv::circle(_canvas, ball.getPos(), BALLRADIUS, WHITE, 1, cv::LINE_AA); // Draw ball
+
+	// Wait if too fast for FPS control
+	std::this_thread::sleep_until(end_time);
+	time2 = cv::getTickCount();
 }
 
 void Pong::draw() {
@@ -72,7 +86,7 @@ void Pong::resetGame() {
 	int then = cv::getTickCount();
 	Sleep(1000);
 	while (1) {
-		if (cv::getTickCount() - then >= 1000) {
+		if ((cv::getTickCount() - then)/cv::getTickFrequency() >= 1000) {
 			break;
 		}
 	}

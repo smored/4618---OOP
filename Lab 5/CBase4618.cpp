@@ -11,6 +11,7 @@ CBase4618::~CBase4618() {
 
 void CBase4618::run() {
 	do {
+
 		update();
 		draw();
 	} while (cv::waitKey(1) != 'q');
