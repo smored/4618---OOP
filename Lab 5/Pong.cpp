@@ -25,10 +25,12 @@ Pong::~Pong() {
 }
 
 void Pong::update() {
+	/*canvaslock.lock();
 	if (_canvas.empty()) {
 		std::cout << "Error: canvas not defined!";
 		return;
 	}
+	canvaslock.unlock();*/
 
 	// Set Target FPS
 	auto end_time = std::chrono::system_clock::now() + std::chrono::milliseconds(1000/FPS);
@@ -48,7 +50,6 @@ void Pong::update() {
 	cv::Rect aiRect = AIpaddle.getRect();
 
 	// Update ball position
-	std::vector<int> score;
 	score = ball.updateBall(playerRect, aiRect);
 
 	static std::vector<int> oogabooga = score;
@@ -56,8 +57,8 @@ void Pong::update() {
 	if (oogabooga[0] < score[0] || oogabooga[1] < score[1]) resetGame();
 	oogabooga = score;
 
-
 	// Rendering
+	canvaslock.lock();
 	_canvas = cv::Mat::zeros(cv::Size(_canvas.size()), CV_8UC3); // Refresh screen
 	cv::putText(_canvas, std::to_string(score[0]), cv::Point(_canvas.size().width / 3, 60), 1, 5, WHITE); // Player Score
 	cv::putText(_canvas, std::to_string(score[1]), cv::Point(_canvas.size().width * (2.0f / 3.0f), 60), 1, 5, WHITE); // AI Score
@@ -65,6 +66,8 @@ void Pong::update() {
 	cv::rectangle(_canvas, Playerpaddle.getRect(), WHITE); // Draw player paddle
 	cv::rectangle(_canvas, AIpaddle.getRect(), WHITE); // Draw AI paddle
 	cv::circle(_canvas, ball.getPos(), BALLRADIUS, WHITE, 1, cv::LINE_AA); // Draw ball
+	canvaslock.unlock();
+	
 
 	// Wait if too fast for FPS control
 	std::this_thread::sleep_until(end_time);
@@ -72,22 +75,42 @@ void Pong::update() {
 }
 
 void Pong::draw() {
-	if (_canvas.empty()) {
-		std::cout << "Error: canvas not defined!";
-		return;
-	}
+	canvaslock.lock();
 	cv::imshow("Pong", _canvas);
+	canvaslock.unlock();
 }
 
 void Pong::resetGame() {
+	//if (score[0] >= 5 || score[1] >= 5) {
+	//	score[0] = 0; score[1] = 0;
+	//}
 	ball.resetBall();
 	Playerpaddle.resetPaddle();
 	AIpaddle.resetPaddle();
 	int then = cv::getTickCount();
-	Sleep(1000);
 	while (1) {
 		if ((cv::getTickCount() - then)/cv::getTickFrequency() >= 1000) {
 			break;
 		}
+	}
+}
+
+void Pong::start() {
+	using namespace std;
+	thread t1(&Pong::update_thread, this);
+	thread t2(&Pong::draw_thread, this);
+	t1.detach();
+	t2.detach();
+}
+
+void Pong::update_thread(Pong* ptr) {
+	while (!ptr->_thread_exit) {
+		ptr->update();
+	}
+}
+
+void Pong::draw_thread(Pong* ptr) {
+	while (!ptr->_thread_exit) {
+		ptr->draw();
 	}
 }

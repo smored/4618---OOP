@@ -19,9 +19,14 @@
  */
 class Pong : public CBase4618 {
 private:
+	std::mutex canvaslock;
+	bool _thread_exit = false;
+	static void update_thread(Pong* ptr);
+	static void draw_thread(Pong* ptr);
 	Ball ball = Ball(BALLRADIUS);
 	Paddle AIpaddle = Paddle(AI, cv::Rect(100, 100, PADDLEX, PADDLEY));
 	Paddle Playerpaddle = Paddle(PLAYER, cv::Rect(0, 0, PADDLEX, PADDLEY));
+	std::vector<int> score;
 	/* @brief inherits CBase4618's update method to update internal variables of CSketch
 	* @param: no parameters
 	* @return void
@@ -36,6 +41,8 @@ private:
 
 	void resetGame();
 public:
+	void start();
+	void end();
 	/* @brief CSketch constructor initializes canvas size and serial port
 	* @param size: a cv size object to specify how big to make the canvas
 	* @param comport: a number specifying which comport to open

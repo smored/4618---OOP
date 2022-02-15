@@ -287,15 +287,17 @@ void lab3_demo() {
     std::cout << "\nCMD> ";
 }
 
-// For lab 3 demo
-
 
 int main(int argc, char* argv[])
 {
-    /*std::thread updateThread
-        std::thread runThread*/
     Pong pong(cv::Size(2000, 1000), 7);
-    pong.run();
+    pong.start();
+
+    /*Pong pong(cv::Size(2000, 1000), 7);
+    pong.run();*/
     //CSketch csketch(cv::Size(2000, 1000), 7);
     //csketch.run();
+
+    while (cv::waitKey(1) != 'q') 
+    { }
 }
