@@ -291,13 +291,10 @@ void lab3_demo() {
 int main(int argc, char* argv[])
 {
     Pong pong(cv::Size(2000, 1000), 7);
-    pong.start();
+    pong.run();
 
     /*Pong pong(cv::Size(2000, 1000), 7);
     pong.run();*/
     //CSketch csketch(cv::Size(2000, 1000), 7);
     //csketch.run();
-
-    while (cv::waitKey(1) != 'q') 
-    { }
 }

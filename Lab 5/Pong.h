@@ -20,9 +20,7 @@
 class Pong : public CBase4618 {
 private:
 	std::mutex canvaslock;
-	bool _thread_exit = false;
-	static void update_thread(Pong* ptr);
-	static void draw_thread(Pong* ptr);
+
 	Ball ball = Ball(BALLRADIUS);
 	Paddle AIpaddle = Paddle(AI, cv::Rect(100, 100, PADDLEX, PADDLEY));
 	Paddle Playerpaddle = Paddle(PLAYER, cv::Rect(0, 0, PADDLEX, PADDLEY));

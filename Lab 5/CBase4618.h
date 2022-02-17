@@ -12,6 +12,10 @@
  * @version 1.0 -- 12 Feb 2022
  */
 class CBase4618 {
+private:
+	bool _thread_exit = false;
+	void update_thread();
+	void draw_thread();
 protected:
 	CControl control; ///< control object for handling all communications with uC
 	cv::Mat _canvas;  ///< Mat object for drawing on and updating to screen
