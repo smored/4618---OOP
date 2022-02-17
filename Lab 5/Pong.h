@@ -8,7 +8,7 @@
 #define PADDLEX 50
 #define PADDLEY 200
 
-/** CSketch.h
+/** Pong.h
  *
  * @brief Inherits & overrides methods from CBase4618.h for implementation in a game of pong
  *
@@ -19,10 +19,8 @@
  */
 class Pong : public CBase4618 {
 private:
-	std::mutex canvaslock;
-
-	Ball ball = Ball(BALLRADIUS);
-	Paddle AIpaddle = Paddle(AI, cv::Rect(100, 100, PADDLEX, PADDLEY));
+	Ball ball = Ball(BALLRADIUS); ///< Ball object instantiated with paramaterized size constructor
+	Paddle AIpaddle = Paddle(AI, cv::Rect(100, 100, PADDLEX, PADDLEY)); ///< 
 	Paddle Playerpaddle = Paddle(PLAYER, cv::Rect(0, 0, PADDLEX, PADDLEY));
 	std::vector<int> score;
 	/* @brief inherits CBase4618's update method to update internal variables of CSketch
@@ -39,8 +37,6 @@ private:
 
 	void resetGame();
 public:
-	void start();
-	void end();
 	/* @brief CSketch constructor initializes canvas size and serial port
 	* @param size: a cv size object to specify how big to make the canvas
 	* @param comport: a number specifying which comport to open

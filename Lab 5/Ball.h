@@ -3,11 +3,11 @@
 class Ball
 {
 private:
-	cv::Point position = cv::Point(0, 0);
-	cv::Point velocity = cv::Point(6*5, 6*5);
-	cv::Point acceleration = cv::Point(0,0);
-	cv::Point canvasSize = cv::Point(0, 0);
-	int size = 0;
+	cv::Point position = cv::Point(0, 0); ///< opencv point for position of ball
+	cv::Point velocity = cv::Point(6*5, 6*5); ///< opencv point for velocity of ball
+	cv::Point acceleration = cv::Point(0,0); ///< opencv point for acceleration of ball
+	cv::Point canvasSize = cv::Point(0, 0); ///< opencv point for storing the size of the canvas
+	int size = 0; 
 	std::vector<int> score = {0,0};
 public:
 
