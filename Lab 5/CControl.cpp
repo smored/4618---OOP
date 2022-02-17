@@ -53,7 +53,7 @@ void CControl::init_com(int port) {
 
 void CControl::init_com() {
 	// Loop through all comm posibilities, check if open and then list available ports to choose from
-	const int MAX_PORTS = 50;
+	const int MAX_PORTS = 255;
 	int comport;
 	for (comport = 0; comport < MAX_PORTS; comport++) {
 		if (getPort(comport)) break;

@@ -70,3 +70,7 @@ void Ball::reflect(bool axis) {
 		velocity.y *= -1;
 	}
 }
+
+void Ball::resetScore() {
+	this->score = { 0,0 };
+}

@@ -28,23 +28,32 @@ void Paddle::setSize(cv::Point canvasSize) {
 
 void Paddle::updatePaddle(int velocity) {
 	if (this->type == AI) {
+		int paddleCenter = paddleSize.y + paddleSize.height / 2;
 		//this->paddleSize.y = velocity; // Non-winnable game
+		if (paddleCenter > velocity) {
 
-		if (paddleSize.y > velocity) {
-
-			paddleSize.y -= 6*6;
+			paddleSize.y -= 3*6;
 
 		}
-		else if (paddleSize.y < velocity) {
+		else if (paddleCenter < velocity) {
 
-			paddleSize.y += 6*6;
+			paddleSize.y += 3*6;
 
 		}
 
 	}
 	else if (this->type == PLAYER) {
-		if (!(paddleSize.y + velocity + paddleSize.height >= canvasSize.y || paddleSize.y + velocity <= 0)) {
+		if (!(paddleSize.y + velocity + paddleSize.height >= canvasSize.y)) {
 			paddleSize.y += velocity;
+		}
+		else {
+			paddleSize.y = canvasSize.y - velocity - paddleSize.height;
+		}
+		if (!(paddleSize.y + velocity <= 0)) {
+			paddleSize.y += velocity;
+		}
+		else {
+			paddleSize.y = 0;
 		}
 	}
 }

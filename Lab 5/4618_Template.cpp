@@ -290,7 +290,7 @@ void lab3_demo() {
 
 int main(int argc, char* argv[])
 {
-    Pong pong(cv::Size(2000, 1000), 7);
+    Pong pong(cv::Size(1000, 500), 7);
     pong.run();
 
     /*Pong pong(cv::Size(2000, 1000), 7);

@@ -51,4 +51,9 @@ public:
 	* @return void
 	**/
 	void run();
+
+	/* @brief method called in run loop to get current fps and set target fps
+	* @return void
+	*/
+	void fps();
 };

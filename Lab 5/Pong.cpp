@@ -6,17 +6,17 @@
 #define Y_JOYSTICK 26
 #define S1 33
 #define S2 32
-#define FPS 30
 
 Pong::Pong(cv::Size size, int comport) {
-	//control.init_com();
+	control.init_com();
 	_canvas = cv::Mat::zeros(size, CV_8UC3);
-	/*ball.setSize(_canvas.size());
+	ball.setSize(_canvas.size());
+	ball.resetBall();
 	AIpaddle.setSize(_canvas.size());
 	AIpaddle.resetPaddle();
 	Playerpaddle.setSize(_canvas.size());
 	Playerpaddle.resetPaddle();
-	resetGame();*/
+	resetGame();
 }
 
 Pong::~Pong() {
@@ -24,81 +24,53 @@ Pong::~Pong() {
 }
 
 void Pong::update() {
-	/*canvaslock.lock();
-	if (_canvas.empty()) {
-		std::cout << "Error: canvas not defined!";
-	//	return;
-	//}
-	//canvaslock.unlock();*/
+	if (control.get_button(33, 0)) gameOver();
 
-	//// Set Target FPS
-	//auto end_time = std::chrono::system_clock::now() + std::chrono::milliseconds(1000/FPS);
+	// Player Paddle controlled by joystick
+	Playerpaddle.updatePaddle((control.get_analog(Y_JOYSTICK)*-100 + 50));
+	cv::Rect playerRect = Playerpaddle.getRect();
 
-	//// Get FPS
-	//static int time1, time2;
-	//float fps = 1.0f/((time2 - time1) / cv::getTickFrequency());
-	//time1 = cv::getTickCount();
-	//std::cout << "FPS: " << fps << std::endl;
+	// AI chases ball y position
+	AIpaddle.updatePaddle(ball.getPos().y);
+	cv::Rect aiRect = AIpaddle.getRect();
 
-	//// Player Paddle controlled by joystick
-	//Playerpaddle.updatePaddle((control.get_analog(Y_JOYSTICK)*-100 + 50));
-	//cv::Rect playerRect = Playerpaddle.getRect();
-
-	//// AI chases ball y position
-	//AIpaddle.updatePaddle(ball.getPos().y);
-	//cv::Rect aiRect = AIpaddle.getRect();
-
-	//// Update ball position
-	//score = ball.updateBall(playerRect, aiRect);
-
-	//static std::vector<int> oogabooga = score;
-
-	//if (oogabooga[0] < score[0] || oogabooga[1] < score[1]) resetGame();
-	//oogabooga = score;
-
-	//// Rendering
-	////canvaslock.lock();
-	////_canvas = cv::Mat::zeros(cv::Size(_canvas.size()), CV_8UC3); // Refresh screen
-	////cv::putText(_canvas, std::to_string(score[0]), cv::Point(_canvas.size().width / 3, 60), 1, 5, WHITE); // Player Score
-	////cv::putText(_canvas, std::to_string(score[1]), cv::Point(_canvas.size().width * (2.0f / 3.0f), 60), 1, 5, WHITE); // AI Score
-	////cv::line(_canvas, cv::Point(_canvas.size().width/2, 0), cv::Point(_canvas.size().width / 2, _canvas.size().height), WHITE); // Draw centre line
-	////cv::rectangle(_canvas, Playerpaddle.getRect(), WHITE); // Draw player paddle
-	////cv::rectangle(_canvas, AIpaddle.getRect(), WHITE); // Draw AI paddle
-	////cv::circle(_canvas, ball.getPos(), BALLRADIUS, WHITE, 1, cv::LINE_AA); // Draw ball
-	////canvaslock.unlock();
-	//
-
-	//// Wait if too fast for FPS control
-	//std::this_thread::sleep_until(end_time);
-	//time2 = cv::getTickCount();
+	// Update ball position
+	static std::vector<int> prevScore = score;
+	score = ball.updateBall(playerRect, aiRect);
+	if (prevScore != score) {
+		if (score[0] >= 5 || score[1] >= 5) {
+			std::cout << "Game Over\nPress S1 to continue\n";
+			while (!(control.get_button(33, 0)));
+			gameOver();
+		}
+		prevScore = score;
+	}
+	
 }
 
 void Pong::draw() {
-	//canvaslock.lock();
-	//_canvas = cv::Mat::zeros(cv::Size(_canvas.size()), CV_8UC3); // Refresh screen
-	//cv::putText(_canvas, std::to_string(0), cv::Point(_canvas.size().width / 3, 60), 1, 5, WHITE); // Player Score
-	//cv::putText(_canvas, std::to_string(1), cv::Point(_canvas.size().width * (2.0f / 3.0f), 60), 1, 5, WHITE); // AI Score
-	//cv::line(_canvas, cv::Point(_canvas.size().width / 2, 0), cv::Point(_canvas.size().width / 2, _canvas.size().height), WHITE); // Draw centre line
-	//cv::rectangle(_canvas, Playerpaddle.getRect(), WHITE); // Draw player paddle
-	//cv::rectangle(_canvas, AIpaddle.getRect(), WHITE); // Draw AI paddle
-	//cv::circle(_canvas, ball.getPos(), BALLRADIUS, WHITE, 1, cv::LINE_AA); // Draw ball
+	_canvas = cv::Mat::zeros(cv::Size(_canvas.size()), CV_8UC3); // Refresh screen
+	if (score.size() > 0) { // if score has been initialized...
+		cv::putText(_canvas, std::to_string(score[0]), cv::Point(_canvas.size().width / 3, 60), 1, 5, WHITE); // Player Score
+		cv::putText(_canvas, std::to_string(score[1]), cv::Point(_canvas.size().width * (2.0f / 3.0f), 60), 1, 5, WHITE); // AI Score
+	}
+	cv::line(_canvas, cv::Point(_canvas.size().width / 2, 0), cv::Point(_canvas.size().width / 2, _canvas.size().height), WHITE); // Draw centre line
+	cv::rectangle(_canvas, Playerpaddle.getRect(), WHITE); // Draw player paddle
+	cv::rectangle(_canvas, AIpaddle.getRect(), WHITE); // Draw AI paddle
+	cv::circle(_canvas, ball.getPos(), BALLRADIUS, WHITE, 1, cv::LINE_AA); // Draw ball
 	cv::imshow("Pong", _canvas);
-	//canvaslock.unlock();
 }
 
 void Pong::resetGame() {
-	//if (score[0] >= 5 || score[1] >= 5) {
-	//	score[0] = 0; score[1] = 0;
-	//}
-	//ball.resetBall();
-	//Playerpaddle.resetPaddle();
-	//AIpaddle.resetPaddle();
-	//int then = cv::getTickCount();
-	//while (1) {
-	//	if ((cv::getTickCount() - then)/cv::getTickFrequency() >= 1000) {
-	//		break;
-	//	}
-	//}
+	ball.resetBall();
+	ball.resetScore();
+	Playerpaddle.resetPaddle();
+	AIpaddle.resetPaddle();
+}
+
+void Pong::gameOver() {
+	score[0] = 0; score[1] = 0;
+	resetGame();
 }
 
 //void Pong::start() {

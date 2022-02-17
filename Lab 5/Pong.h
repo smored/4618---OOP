@@ -4,9 +4,9 @@
 #include "Ball.h"
 #include "Paddle.h"
 
-#define BALLRADIUS 50
-#define PADDLEX 50
-#define PADDLEY 200
+#define BALLRADIUS 25
+#define PADDLEX 25
+#define PADDLEY 100
 
 /** Pong.h
  *
@@ -35,7 +35,15 @@ private:
 	*/
 	void draw() override;
 
+	/* @brief resets the positions of all game objects to their default states but preserves the score. used for respawning the ball mainly
+	* @return void
+	*/
 	void resetGame();
+
+	/* @brief completely hard resets the game to its base state
+	* @return void
+	*/
+	void gameOver();
 public:
 	/* @brief CSketch constructor initializes canvas size and serial port
 	* @param size: a cv size object to specify how big to make the canvas
