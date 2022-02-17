@@ -5,8 +5,8 @@
 #include "Paddle.h"
 
 #define BALLRADIUS 25
-#define PADDLEX 25
-#define PADDLEY 100
+#define PADDLEX 300
+#define PADDLEY 10
 
 /** Pong.h
  *
@@ -20,6 +20,14 @@
 class Pong : public CBase4618 {
 private:
 	Ball ball = Ball(BALLRADIUS); ///< Ball object instantiated with paramaterized size constructor
+	Ball ball2 = Ball(BALLRADIUS/2);
+	Ball ball3 = Ball(BALLRADIUS/3);
+	Ball ball4 = Ball(BALLRADIUS); ///< Ball object instantiated with paramaterized size constructor
+	Ball ball5 = Ball(BALLRADIUS / 2);
+	Ball ball6 = Ball(BALLRADIUS / 3);
+	Ball ball7 = Ball(BALLRADIUS); ///< Ball object instantiated with paramaterized size constructor
+	Ball ball8 = Ball(BALLRADIUS / 2);
+	Ball ball9 = Ball(BALLRADIUS / 3);
 	Paddle AIpaddle = Paddle(AI, cv::Rect(100, 100, PADDLEX, PADDLEY)); ///< 
 	Paddle Playerpaddle = Paddle(PLAYER, cv::Rect(0, 0, PADDLEX, PADDLEY));
 	std::vector<int> score;

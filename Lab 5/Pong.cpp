@@ -12,6 +12,22 @@ Pong::Pong(cv::Size size, int comport) {
 	_canvas = cv::Mat::zeros(size, CV_8UC3);
 	ball.setSize(_canvas.size());
 	ball.resetBall();
+	ball2.setSize(_canvas.size());
+	ball2.resetBall();
+	ball3.setSize(_canvas.size());
+	ball3.resetBall();
+	ball4.setSize(_canvas.size());
+	ball4.resetBall();
+	ball5.setSize(_canvas.size());
+	ball5.resetBall();
+	ball6.setSize(_canvas.size());
+	ball6.resetBall();
+	ball7.setSize(_canvas.size());
+	ball7.resetBall();
+	ball8.setSize(_canvas.size());
+	ball8.resetBall();
+	ball9.setSize(_canvas.size());
+	ball9.resetBall();
 	AIpaddle.setSize(_canvas.size());
 	AIpaddle.resetPaddle();
 	Playerpaddle.setSize(_canvas.size());
@@ -37,6 +53,14 @@ void Pong::update() {
 	// Update ball position
 	static std::vector<int> prevScore = score;
 	score = ball.updateBall(playerRect, aiRect);
+	ball2.updateBall(playerRect, aiRect);
+	ball3.updateBall(playerRect, aiRect);
+	ball4.updateBall(playerRect, aiRect);
+	ball5.updateBall(playerRect, aiRect);
+	ball6.updateBall(playerRect, aiRect);
+	ball7.updateBall(playerRect, aiRect);
+	ball8.updateBall(playerRect, aiRect);
+	ball9.updateBall(playerRect, aiRect);
 	if (prevScore != score) {
 		if (score[0] >= 5 || score[1] >= 5) {
 			std::cout << "Game Over\nPress S1 to continue\n";
@@ -58,6 +82,14 @@ void Pong::draw() {
 	cv::rectangle(_canvas, Playerpaddle.getRect(), WHITE); // Draw player paddle
 	cv::rectangle(_canvas, AIpaddle.getRect(), WHITE); // Draw AI paddle
 	cv::circle(_canvas, ball.getPos(), BALLRADIUS, WHITE, 1, cv::LINE_AA); // Draw ball
+	cv::circle(_canvas, ball2.getPos(), BALLRADIUS, WHITE, 1, cv::LINE_AA); // Draw ball
+	cv::circle(_canvas, ball3.getPos(), BALLRADIUS, WHITE, 1, cv::LINE_AA); // Draw ball
+	cv::circle(_canvas, ball4.getPos(), BALLRADIUS, WHITE, 1, cv::LINE_AA); // Draw ball
+	cv::circle(_canvas, ball5.getPos(), BALLRADIUS, WHITE, 1, cv::LINE_AA); // Draw ball
+	cv::circle(_canvas, ball6.getPos(), BALLRADIUS, WHITE, 1, cv::LINE_AA); // Draw ball
+	cv::circle(_canvas, ball7.getPos(), BALLRADIUS, WHITE, 1, cv::LINE_AA); // Draw ball
+	cv::circle(_canvas, ball8.getPos(), BALLRADIUS, WHITE, 1, cv::LINE_AA); // Draw ball
+	cv::circle(_canvas, ball9.getPos(), BALLRADIUS, WHITE, 1, cv::LINE_AA); // Draw ball
 	cv::imshow("Pong", _canvas);
 }
 
