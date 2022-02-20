@@ -10,7 +10,7 @@
 #define DEADZONE 4
 
 CSketch::CSketch(cv::Size size, int comport) {
-	control.init_com(7);
+	control.init_com();
 	_canvas = cv::Mat::zeros(size, CV_8UC3);
 	stickval = cv::Point(_canvas.size().width/2, _canvas.size().height/2);
 }

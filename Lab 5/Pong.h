@@ -19,39 +19,42 @@
  */
 class Pong : public CBase4618 {
 private:
+	std::string gameOverText;
 	Ball ball = Ball(BALLRADIUS); ///< Ball object instantiated with paramaterized size constructor
-	Paddle AIpaddle = Paddle(AI, cv::Rect(100, 100, PADDLEX, PADDLEY)); ///< 
-	Paddle Playerpaddle = Paddle(PLAYER, cv::Rect(0, 0, PADDLEX, PADDLEY));
-	std::vector<int> score;
-	/* @brief inherits CBase4618's update method to update internal variables of CSketch
+	Paddle AIpaddle; ///< instantiating AI paddle
+	Paddle Playerpaddle; ///< instantiating player paddle
+	std::vector<int> score; ///< score used for reset logic and drawing to screen
+	std::mutex canvaslock;
+	/** @brief inherits CBase4618's update method to update internal variables of CSketch
 	* @param: no parameters
 	* @return void
-	*/
+	**/
 	void update() override;
 
-	/* @brief inherits CBase4618's draw method to calculate and display images on the screen
+	/** @brief inherits CBase4618's draw method to calculate and display images on the screen
 	* @param: no parameters
 	* @return void
-	*/
+	**/
 	void draw() override;
 
-	/* @brief resets the positions of all game objects to their default states but preserves the score. used for respawning the ball mainly
+	/** @brief resets the positions of all game objects to their default states but preserves the score. used for respawning the ball mainly
 	* @return void
-	*/
+	**/
 	void resetGame();
 
-	/* @brief completely hard resets the game to its base state
+	/** @brief completely hard resets the game to its base state
 	* @return void
-	*/
+	**/
 	void gameOver();
 public:
-	/* @brief CSketch constructor initializes canvas size and serial port
+	/** @brief CSketch constructor initializes canvas size and serial port
 	* @param size: a cv size object to specify how big to make the canvas
 	* @param comport: a number specifying which comport to open
 	* @return void
-	*/
+	**/
 	Pong(cv::Size size, int comport);
-	/* @brief default deconstructor
-	*/
+
+	/** @brief default deconstructor
+	**/
 	~Pong();
 };

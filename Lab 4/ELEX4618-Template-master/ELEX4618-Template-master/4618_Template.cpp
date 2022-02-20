@@ -291,6 +291,6 @@ void lab3_demo() {
 
 int main(int argc, char* argv[])
 {
-    CSketch sketch(cv::Size(2000, 1000), 7);
+    CSketch sketch(cv::Size(500, 500), 7);
     sketch.run();
 }

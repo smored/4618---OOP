@@ -18,39 +18,40 @@ private:
 	cv::Rect paddleSize; ///< size of the paddle using cv::Rect points
 	bool type = AI; ///< bool that defines whether this is a player or computer controlled paddle
 public:
-	/* @brief parameterized constructor for creating the paddle
+	Paddle();
+	/** @brief parameterized constructor for creating the paddle
 	* @param type: type of paddle this is (player or ai)
 	* @param paddleSize: opencv Rect for size and posistion of rectangle
-	*/
+	**/
 	Paddle(bool type, cv::Rect paddleSize);
 
-	/* @brief default deconstructor
-	*/
+	/** @brief default deconstructor
+	**/
 	~Paddle();
 
-	/* @brief deprecated method, do not use
-	*/
+	/** @brief deprecated method, do not use
+	**/
 	void setSize(cv::Point canvasSize, cv::Rect paddleSize);
 
-	/* @brief method for setting the size of the canvas. paddle must know this for collision
+	/** @brief method for setting the size of the canvas. paddle must know this for collision
 	* @param canvasSize: x y size of the canvas
 	* @return void
-	*/
+	**/
 	void setSize(cv::Point canvasSize);
 
-	/* @brief method which must be called every tick in order to update the position of the paddle
+	/** @brief method which must be called every tick in order to update the position of the paddle
 	* @param velocity: velocity/position inputted for position calcs
 	* @return void
-	*/
+	**/
 	void updatePaddle(int velocity);
 
-	/* @brief method to reset the position of the paddle
+	/** @brief method to reset the position of the paddle
 	* @return void
-	*/
+	**/
 	void resetPaddle();
 
-	/* @brief getter for rectangle position of centre of ball)
+	/** @brief getter for rectangle position of centre of ball)
 	* @return returns a cv::Rect which contains the size and position of the rectangle
-	*/
+	**/
 	cv::Rect Paddle::getRect();
 };

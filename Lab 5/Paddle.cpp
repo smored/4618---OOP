@@ -1,6 +1,13 @@
 #include "stdafx.h"
 #include "Paddle.h"
 
+#define PADDLESPEED 18
+
+Paddle::Paddle() {
+	this->type = AI;
+	this->paddleSize = cv::Rect(50, 50, 50, 50);
+}
+
 Paddle::Paddle(bool type, cv::Rect paddleSize) {
 	this->type = type;
 	this->paddleSize = paddleSize;
@@ -32,12 +39,12 @@ void Paddle::updatePaddle(int velocity) {
 		//this->paddleSize.y = velocity; // Non-winnable game
 		if (paddleCenter > velocity) {
 
-			paddleSize.y -= 3*6;
+			paddleSize.y -= PADDLESPEED;
 
 		}
 		else if (paddleCenter < velocity) {
 
-			paddleSize.y += 3*6;
+			paddleSize.y += PADDLESPEED;
 
 		}
 

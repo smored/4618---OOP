@@ -18,7 +18,7 @@ void Ball::setSize(cv::Point canvasSize) {
 std::vector<int> Ball::updateBall(cv::Rect playerRect, cv::Rect aiRect) {
 	// Check if going to collide with paddle
 	// Left side
-	cv::Point nextPos = position + velocity;
+	cv::Point nextPos = position;
 	if (nextPos.x - size <= playerRect.x + playerRect.width) {
 		if (nextPos.y + size >= playerRect.y && nextPos.y - size <= playerRect.y + playerRect.height) {
 			reflect(X_AXIS);
@@ -36,14 +36,14 @@ std::vector<int> Ball::updateBall(cv::Rect playerRect, cv::Rect aiRect) {
 	if (velocity.y + position.y - this->size <= 0 || velocity.y + position.y + this->size >= canvasSize.y) {
 		this->reflect(Y_AXIS);
 	}
-	if (velocity.x + position.x - this->size <= 0) {
+	if (position.x - this->size <= 0) {
 		// Left side, so increment AI score
-		this->score[1]++;
+		this->score.at(1)++;
 		this->reflect(X_AXIS);
 	}
-	else if (velocity.x + position.x + this->size >= canvasSize.x) {
+	else if (position.x + this->size >= canvasSize.x) {
 		// Right side, so increment player score
-		this->score[0]++;
+		this->score.at(0)++;
 		this->reflect(X_AXIS);
 	}
 

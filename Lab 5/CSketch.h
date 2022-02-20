@@ -17,7 +17,7 @@ private:
 	cv::Scalar colour = cv::Scalar(255, 255, 255); ///< variable used for storing current colour of cursor
 
 	const cv::Scalar colourArr[3] = {cv::Scalar(255, 0, 0), cv::Scalar(0, 255, 0), cv::Scalar(0, 0, 255)}; ///< constant array stores all colour values to cycle through
-
+	cv::Mat _canvas;  ///< Mat object for drawing on and updating to screen
 	/* @brief inherits CBase4618's update method to update internal variables of CSketch
 	* @param: no parameters
 	* @return void
