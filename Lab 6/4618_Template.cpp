@@ -20,7 +20,7 @@
 #include "Server.h"
 #include "CControl.h"
 #include "CSketch.h"
-#include "CAsteroid.h"
+#include "CAsteroidGame.h"
 
 using namespace std;
 enum { DIGITAL, ANALOG, SERVO };
@@ -290,6 +290,6 @@ void lab3_demo() {
 
 int main(int argc, char* argv[])
 {
-    CAsteroid casteroid(cv::Size(1000,500));
-    casteroid.run();
+    CAsteroidGame astro(cv::Size(2000,1000));
+    astro.run();
 }

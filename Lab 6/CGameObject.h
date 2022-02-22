@@ -9,16 +9,17 @@
 */
 class CGameObject {
 protected:
-cv::Point2f _position; ///< Object's current position
-cv::Point2f _velocity; ///< Object's current velocity
-cv::Point2f _acceleration; ///< Object's current acceleration
-int _radius; ///< Size to make object's hitbox/rendering size
-int _lives; ///< How many lives this object has
+	cv::Scalar _draw_colour;
+	cv::Point2f _position; ///< Object's current position
+	cv::Point2f _velocity; ///< Object's current velocity
+	cv::Point2f _acceleration; ///< Object's current acceleration
+	int _radius; ///< Size to make object's hitbox/rendering size
+	int _lives; ///< How many lives this object has
 public:
 	/** @brief method for handling movement of object
 	* @return void
 	**/
-	void move();
+	void move(double deltaT);
 
 	/** @brief method for returning if object has collided
 	* @param obj: pass in a referece to the object that you are interested in colliding with
@@ -68,5 +69,8 @@ public:
 	* @param vel: a Point2f representing the x,y velocity of this object
 	* @ return void
 	**/
-	void set_vel(cv::Point2f vel) { _velocity = vel; }
+	void set_vel(cv::Point2f vel) { _velocity += vel; }
+	void set_acc(cv::Point2f acc) { _acceleration += acc; }
+	cv::Point2f get_acc() { return _acceleration; }
+	cv::Point2f get_vel() { return _velocity; }
 };

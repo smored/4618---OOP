@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "CBase4618.h"
 
-#define FPS 100
-#define UPS 100
+#define FPS 60
+#define UPS 60
 
 CBase4618::CBase4618() {
 
@@ -61,12 +61,13 @@ void CBase4618::fps() {
 	time1 = cv::getTickCount();
 
 	// Get Average
+	this->framerate = fps;
 	avgFPS += fps;
 	i++;
 	if (i >= iterations) {
 		i = 0;
 		avgFPS /= iterations;
-		this->framerate = avgFPS;
+		//this->framerate = avgFPS;
 		std::cout << "AVG FPS: " << avgFPS << std::endl;
 	}
 
@@ -109,4 +110,25 @@ double CBase4618::getfps() {
 		return 0;
 	}
 	return framerate;
+}
+
+void CBase4618::clamp(int& val, int upper, int lower) {
+	if (val > upper) val = upper;
+	if (val < lower) val = lower;
+}
+
+void CBase4618::clamp(cv::Point2f& val, int upper, int lower) {
+	if (val.x > upper) val.x = upper;
+	if (val.x < lower) val.x = lower;
+	if (val.y > upper) val.y = upper;
+	if (val.y < lower) val.y = lower;
+}
+
+cv::Point2f CBase4618::normalizeVec(cv::Point2f vector) {
+	double magnitude = magnitudeVec(vector);
+	return vector / magnitude;
+}
+
+double CBase4618::magnitudeVec(cv::Point2f vector) {
+	return sqrt((vector.x * vector.x) + (vector.y * vector.y));
 }

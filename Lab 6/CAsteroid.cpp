@@ -1,49 +1,50 @@
 #include "stdafx.h"
 #include "CAsteroid.h"
 
-#define X_JOYSTICK 2
-#define Y_JOYSTICK 26
-#define S1 33
-#define S2 32
-
-//TODO : add missles and asteroids instantiation
-CAsteroid::CAsteroid(cv::Size size) {
-	// Open Com port
-	control.init_com();
-
-	// Open canvas
-	_canvas = cv::Mat::zeros(size, CV_8UC3);
-	cv::imshow("Asteroids", _canvas);
-
-	// Instantiate important objects
-	_cship = CShip();
-	init_game();
+CAsteroid::CAsteroid() {
+	this->_velocity = cv::Point2f(0, 0);
+	this->set_lives(1);
+	this->_position = cv::Point2f(0, 0);
+	this->_radius = 15;
+	this->_draw_colour = cv::Scalar(128 * (float)rand() / (float)RAND_MAX + 127, 128 * (float)rand() / (float)RAND_MAX + 127, 128 * (float)rand() / (float)RAND_MAX + 127);
 }
 
 CAsteroid::~CAsteroid() {
 
 }
 
-void CAsteroid::init_game() {
-	_cship.set_pos(cv::Point2f(_canvas.size().width / 2.0f, _canvas.size().height / 2.0f));
-	
-}
+void CAsteroid::set_random(cv::Size canvasSize) {
+	const float MAXVELOCITY = 250;
+	// choose which side of screen to spawn on
+	cv::Point spawnPoint = cv::Point(0, 0);
+	cv::Point2f velocity = cv::Point2f(0, 0);
+	int side = 4 * (float)rand() / (float)RAND_MAX;
+	int circleSize = this->_radius + 1;
 
-void CAsteroid::update() {
-	// TODO: make acceleration-based movement
-	_canvas = cv::Mat::zeros(_canvas.size(), CV_8UC3);
-	cv::Point joystickPos = cv::Point((control.get_analog(X_JOYSTICK) * 100) - 50, (control.get_analog(Y_JOYSTICK) * -100) + 50);
-	_cship.set_vel(joystickPos);
-	_cship.move();
-
-	if (control.get_button(S1, 0)) {
-		// Fire Missile
+	if (side == 0) { // left
+		spawnPoint.x = circleSize;
+		spawnPoint.y = canvasSize.height * (float)rand() / (float)RAND_MAX;
+		velocity.x = MAXVELOCITY * (float)rand() / (float)RAND_MAX + 1;
+		velocity.y = MAXVELOCITY * (float)rand() / (float)RAND_MAX + 1;
 	}
-	else if (control.get_button(S2, 1)) {
-		// Reset Button
+	else if (side == 1) { // top
+		spawnPoint.x = canvasSize.width * (float)rand() / (float)RAND_MAX;
+		spawnPoint.y = circleSize;
+		velocity.x = MAXVELOCITY * (float)rand() / (float)RAND_MAX + 1;
+		velocity.y = MAXVELOCITY * (float)rand() / (float)RAND_MAX + 1;
 	}
-}
-
-void CAsteroid::draw() {
-	_cship.draw(_canvas);
+	else if (side == 2) { // right
+		spawnPoint.x = canvasSize.width - circleSize;
+		spawnPoint.y = canvasSize.height * (float)rand() / (float)RAND_MAX;
+		velocity.x = -MAXVELOCITY * (float)rand() / (float)RAND_MAX - 1;
+		velocity.y = MAXVELOCITY * (float)rand() / (float)RAND_MAX + 1;
+	}
+	else if (side == 3) { // bottom
+		spawnPoint.x = canvasSize.width * (float)rand() / (float)RAND_MAX;
+		spawnPoint.y = canvasSize.height - circleSize;
+		velocity.x = MAXVELOCITY * (float)rand() / (float)RAND_MAX + 1;
+		velocity.y = -MAXVELOCITY * (float)rand() / (float)RAND_MAX - 1;
+	}
+	this->_position = spawnPoint;
+	this->_velocity = velocity;
 }

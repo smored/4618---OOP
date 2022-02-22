@@ -71,4 +71,9 @@ public:
 	* 
 	**/
 	double getfps();
+
+	static void clamp(int& val, int upper, int lower);
+	static void clamp(cv::Point2f& val, int upper, int lower);
+	static cv::Point2f CBase4618::normalizeVec(cv::Point2f vector);
+	static double CBase4618::magnitudeVec(cv::Point2f vector);
 };
