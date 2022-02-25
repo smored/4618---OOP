@@ -11,6 +11,8 @@ bool CGameObject::collide(CGameObject& obj) {
 	float distance = sqrt((difference.x * difference.x) + (difference.y * difference.y));
 	if (distance <= (this->_radius + obj._radius)) return true;
 	return false;
+	this->_velocity;
+	obj._velocity;
 }
 
 bool CGameObject::collide_wall(cv::Size board) {
@@ -23,19 +25,6 @@ bool CGameObject::collide_wall(cv::Size board) {
 
 void CGameObject::hit() {
 	this->_lives -= 1;
-
-	std::this_thread::sleep_for(std::chrono::milliseconds(50));
-	this->_draw_colour = cv::Scalar(0, 0, 128);
-	std::this_thread::sleep_for(std::chrono::milliseconds(50));
-	this->_draw_colour = cv::Scalar(0, 0, 0);
-	std::this_thread::sleep_for(std::chrono::milliseconds(50));
-	this->_draw_colour = cv::Scalar(0, 0, 128);
-	std::this_thread::sleep_for(std::chrono::milliseconds(50));
-	this->_draw_colour = cv::Scalar(255, 255, 255);
-
-	if (this->_lives <= 0) {
-		// TODO: delete object
-	}
 }
 
 void CGameObject::draw(cv::Mat& im) {

@@ -2,11 +2,12 @@
 #include "CShip.h"
 #include "CBase4618.h"
 
-CShip::CShip() {
+CShip::CShip(cv::Size canvas_size, int ship_size) {
 	this->set_lives(10);
 	this->_position = cv::Point2f(0, 0);
-	this->_radius = 25;
+	this->_radius = ship_size;
 	this->_draw_colour = cv::Scalar(255, 255, 255);
+	this->_canvas_size = canvas_size;
 }
 
 CShip::~CShip() {
@@ -55,6 +56,28 @@ void CShip::move(double deltaT) {
 		}
 	}
 
-	//std::cout << "Acc: " << _acceleration << " Vel: " << _velocity << " Pos: " << _position << std::endl;
 	_position += _velocity * deltaT;
+
+	if (_position.x + _radius > _canvas_size.width) _position.x = _radius;
+	if (_position.y + _radius > _canvas_size.height) _position.y = _radius;
+	if (_position.x - _radius < 0) _position.x = _canvas_size.width - _radius;
+	if (_position.y - _radius < 0) _position.y = _canvas_size.height - _radius;
+}
+
+void CShip::draw(cv::Mat& im, cv::Scalar draw_colour) {
+	cv::circle(im, _position, _radius, _draw_colour, 3, cv::LINE_AA);
+	this->_draw_colour = draw_colour;
+}
+
+void CShip::hit() {
+	this->_lives -= 1;
+
+	std::this_thread::sleep_for(std::chrono::milliseconds(50));
+	this->_draw_colour = cv::Scalar(0, 0, 128);
+	std::this_thread::sleep_for(std::chrono::milliseconds(50));
+	this->_draw_colour = cv::Scalar(0, 0, 0);
+	std::this_thread::sleep_for(std::chrono::milliseconds(50));
+	this->_draw_colour = cv::Scalar(0, 0, 128);
+	std::this_thread::sleep_for(std::chrono::milliseconds(50));
+	this->_draw_colour = cv::Scalar(255, 255, 255);
 }

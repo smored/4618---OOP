@@ -17,14 +17,13 @@ private:
 	void update_thread(); ///< method for multi-threading update() by looping a single thread
 	void draw_thread(); ///< method for multi-threading draw() by looping a single thread
 	double framerate; ///< framerate of the draw method 
-	cv::Scalar RGB = cv::Scalar(0, 0, 0);
 protected:
 	CControl control; ///< control object for handling all communications with uC
 	cv::Mat _canvas;  ///< Mat object for drawing on and updating to screen
 	const cv::Scalar WHITE = cv::Scalar(255, 255, 255); ///< Default white colour scalar
-	const cv::Scalar RED = cv::Scalar(255, 0, 0); ///< Red colour scalar
+	const cv::Scalar RED = cv::Scalar(0, 0, 255); ///< Red colour scalar
 	const cv::Scalar GREEN = cv::Scalar(0, 255, 0); ///< Green colour scalar
-	const cv::Scalar BLUE = cv::Scalar(0, 0, 255); ///< Blue colour scalar
+	const cv::Scalar BLUE = cv::Scalar(255, 0, 0); ///< Blue colour scalar
 public:
 	
 	/** @brief Class Constructor

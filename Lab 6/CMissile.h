@@ -10,8 +10,18 @@
 **/
 class CMissile : public CGameObject {
 public:
-	CMissile(cv::Point2f velocity, cv::Point2f position);
+	/** @brief paramaterized constructor
+	**/
+	CMissile(cv::Point2f velocity, cv::Point2f position, int missile_size = 2);
+
+	/** @brief default deconstructor
+	**/
 	~CMissile();
-	//bool collide(CGameObject& obj);
+
+	/** @brief draw() method overload from CGameobject
+	* @param im: reference to the canvas to draw on
+	* @return void
+	**/
+	void draw(cv::Mat& im);
 };
 

@@ -1,6 +1,5 @@
 #pragma once
 
-
 /* @brief Base object for all game pieces to inherit from
 * Handles all movement, collision and rendering
 * 
@@ -9,12 +8,12 @@
 */
 class CGameObject {
 protected:
-	cv::Scalar _draw_colour;
+	cv::Scalar _draw_colour; ///< what colour to draw this object in
 	cv::Point2f _position; ///< Object's current position
 	cv::Point2f _velocity; ///< Object's current velocity
-	cv::Point2f _acceleration; ///< Object's current acceleration
 	int _radius; ///< Size to make object's hitbox/rendering size
 	int _lives; ///< How many lives this object has
+	cv::Size _canvas_size; ///< how big is the canvas? useful for looping and destroying certain objects
 public:
 	/** @brief method for handling movement of object
 	* @return void
@@ -69,8 +68,21 @@ public:
 	* @param vel: a Point2f representing the x,y velocity of this object
 	* @ return void
 	**/
-	void set_vel(cv::Point2f vel) { _velocity += vel; }
-	void set_acc(cv::Point2f acc) { _acceleration += acc; }
-	cv::Point2f get_acc() { return _acceleration; }
+	void set_vel(cv::Point2f vel) { _velocity = vel; }
+
+	/** @brief adds (rathers than sets) velocity. useful for acceleration-based movement
+	* @param vel: how much speed to add
+	* @return void
+	**/
+	void add_vel(cv::Point2f vel) { _velocity += vel; }
+
+	/** @brief getter for velocity
+	* @return returns a cv::Point2f representing the velocity of this object
+	**/
 	cv::Point2f get_vel() { return _velocity; }
+
+	/** @brief getter for size of this object
+	* @return returns the radius of this object
+	**/
+	int get_size() { return _radius; }
 };

@@ -290,6 +290,6 @@ void lab3_demo() {
 
 int main(int argc, char* argv[])
 {
-    CAsteroidGame astro(cv::Size(2000,1000));
+    CAsteroidGame astro(cv::Size(1000,500));
     astro.run();
 }
