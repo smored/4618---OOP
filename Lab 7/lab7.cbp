@@ -31,6 +31,9 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="4618_Template.cpp" />
+		<Unit filename="CControlPi.cpp" />
+		<Unit filename="CControlPi.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

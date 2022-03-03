@@ -1,7 +1,6 @@
 #include "CControl.h"
 
 using namespace std;
-enum { DIGITAL, ANALOG, SERVO };
 
 void lab3_demo() {
     std::cout << "\n***********************************";
