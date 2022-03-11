@@ -1,16 +1,8 @@
 #include "CControlPi.h"
-#include <string>
-#include <pigpio.h>
-
-
-#define MAX_VAL 2^10-1
-#define DEBOUNCE_TIME 0
-#define TIMEOUT 100
-
 
 CControlPi::CControlPi() {
     std::cout << "Initializing GPIO..." << std::endl;
-	if (gpioInitialize() < 0) {
+	if (gpioInitialise() >= 0) {
         std::cout << "GPIO Successfully Initialized" << std::endl;
 	} else {
 	    std::cout << "Failure to Initialize GPIO" << std::endl;
@@ -29,17 +21,17 @@ bool CControlPi::get_data(int type, int channel, int& result) {
         result = gpioRead(channel);
         return true;
     case ANALOG:
-        result = readSPI();
+        result = readSPI(channel);
         return true;
     default:
     return false;
     }
 }
 
-int CControlPi::readSPI() {
+int CControlPi::readSPI(int channel) {
     int read_val;
     unsigned char inBuf[3];
-	char cmd[] = { 1, 128, 0 }; // 0b1XXX0000 where XXX=channel 0
+	char cmd[] = {1, 128|(channel<<4), 0}; // 0b1XXX0000 where XXX=channel 0
 	int handle = spiOpen(0, 200000, 3); // Mode 0, 200kHz
 	spiXfer(handle, cmd, (char*) inBuf, 3); // Transfer 3 bytes
 	read_val = ((inBuf[1] & 3) << 8) | inBuf[2]; // Format 10 bits

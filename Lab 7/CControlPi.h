@@ -1,4 +1,13 @@
 #pragma once
+#include <string>
+#include <pigpio.h>
+#include <iostream>
+#include <opencv2/opencv.hpp>
+
+#define MAX_VAL (float)((2^10)-1)
+#define DEBOUNCE_TIME 0
+#define TIMEOUT 100
+
 enum { DIGITAL, ANALOG, SERVO };
 
 /** CControlPi.h
@@ -12,18 +21,18 @@ enum { DIGITAL, ANALOG, SERVO };
  *
  * @version 1.0 -- 03 March 2022
  */
-class CControl {
+class CControlPi {
 public:
 
 	/** @brief Class Constructor
 	* @return void
 	**/
-	CControl();
+	CControlPi();
 
 	/** @brief Class Deconstructor
 	* @return void
 	**/
-	~CControl();
+	~CControlPi();
 
 	/** @brief reads data from pi GPIO
 	* @param type: what mode to operate
@@ -32,6 +41,11 @@ public:
 	* @return returns true if successful
 	**/
 	bool get_data(int type, int channel, int& result);
+
+	/** @brief helper function for reading the ADC's values using SPI
+	* @return int
+	**/
+	int readSPI(int channel);
 
 	/** @brief sets pi GPIO pin states
 	* @param type: what mode to operate

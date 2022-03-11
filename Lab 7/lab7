@@ -13,7 +13,6 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add option="`pkg-config --cflags opencv4` -std=c++11" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -33,10 +32,6 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Linker>
-			<Add option="`pkg-config --libs opencv4` -std=c++11" />
-			<Add option="-lpigpio -lrt -lpthread" />
-		</Linker>
 		<Unit filename="CAsteroid.cpp" />
 		<Unit filename="CAsteroid.h" />
 		<Unit filename="CAsteroidGame.cpp" />
