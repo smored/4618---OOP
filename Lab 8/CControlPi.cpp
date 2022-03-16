@@ -86,5 +86,5 @@ float CControlPi::get_analog(int channel) {
 void CControlPi::set_servo(int setPos, int channel) {
     // 1ms is leftmost, 2ms is rightmost. method takes in as microseconds
 	int microseconds = (setPos/180) * 1000 + 1000;
-    set_data(SERVO, channel, microseconds);
+    gpioServo(channel, microseconds);
 }

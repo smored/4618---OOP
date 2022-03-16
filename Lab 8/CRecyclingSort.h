@@ -1,6 +1,17 @@
 #pragma once
 #include "CBase4618.h"
 
+enum servoEnum {
+ CHANNEL_MIDDLE = 18,
+ CHANNEL_LEFT = 9999,
+ CHANNEL_RIGHT = 9999,
+ POS_MIDDLE = 1500,
+ POS_LEFT = 600,
+ POS_RIGHT = 2400,
+ WAIT_TIME = 500
+ };
+enum ballType {NOTHING, PINK, BLUE, GREEN, YELLOW};
+
 class CRecyclingSort : public CBase4618 {
 private:
     cv::Scalar _bound_upper = cv::Scalar(179,255,255);
@@ -25,7 +36,8 @@ private:
     void draw() override;
 
     void ui_elements();
-    void segment_image();
+    int segment_image();
+    void sort_ball(int ball);
 public:
     CRecyclingSort();
     ~CRecyclingSort();

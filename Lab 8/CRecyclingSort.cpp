@@ -1,7 +1,8 @@
 #include "CRecyclingSort.h"
+#include "cvui.h"
+
 #define FRAME_HEIGHT 300 // for video capture resolution
 #define RECT_AREA_POSITIVE 10000
-#include "cvui.h"
 
 CRecyclingSort::CRecyclingSort() {
     // open video capture
@@ -22,6 +23,9 @@ CRecyclingSort::CRecyclingSort() {
 
     // init cvui
     cvui::init("SETTINGS");
+
+    // set default servo pos
+    gpioServo(18, 1500);
 }
 
 CRecyclingSort::~CRecyclingSort() {
@@ -31,17 +35,23 @@ cv::destroyAllWindows();
 }
 
 void CRecyclingSort::draw() {
+
+    // put frame on canvas
     _video >> _canvas;
     if (_canvas.empty()) {
         std::cerr << "ERROR; blank frame\n";
     }
 
+    // draw settings window
     ui_elements();
-    segment_image();
-
+    int ball = segment_image();
+    // show windows
     cv::imshow("RGB", _canvas);
     cv::imshow("MASK", _mask);
     cv::imshow("SETTINGS", _settings);
+
+    // sort ball based on colour using servos
+    sort_ball(ball);
 }
 
 void CRecyclingSort::update() {
@@ -64,7 +74,7 @@ void CRecyclingSort::ui_elements() {
     cvui::trackbar(_settings, 0, 220, 200, &_erodeSize, (double) 1, (double) 10);// erosion size diameter
 }
 
-void CRecyclingSort::segment_image() {
+int CRecyclingSort::segment_image() {
     // segment into hsv
     cv::Mat hsv;
     cv::cvtColor(_canvas, hsv, cv::COLOR_BGR2HSV);
@@ -93,17 +103,39 @@ void CRecyclingSort::segment_image() {
     cv::Rect yellow_rect = cv::boundingRect(_mask);
     cv::rectangle(_canvas, yellow_rect, cv::Scalar(0,255,255));
 
-
-
     if (pink_rect.area() > RECT_AREA_POSITIVE) {
-    std::cout << "PINK BALL DETECTED" << std::endl;
+        std::cout << "PINK BALL DETECTED" << std::endl;
+        return ballType::PINK;
     } else if (blue_rect.area() > RECT_AREA_POSITIVE) {
-    std::cout << "BLUE BALL DETECTED" << std::endl;
+        std::cout << "BLUE BALL DETECTED" << std::endl;
+        return ballType::BLUE;
     } else if (green_rect.area() > RECT_AREA_POSITIVE) {
-    std::cout << "GREEN BALL DETECTED" << std::endl;
+        std::cout << "GREEN BALL DETECTED" << std::endl;
+        return ballType::GREEN;
     } else if (yellow_rect.area() > RECT_AREA_POSITIVE) {
-    std::cout << "YELLOW BALL DETECTED" << std::endl;
+        std::cout << "YELLOW BALL DETECTED" << std::endl;
+        return ballType::YELLOW;
     } else {
-    std::cout << "NOTHING DETECTED" << std::endl;
+        std::cout << "NOTHING DETECTED" << std::endl;
+        return ballType::NOTHING;
+    }
+}
+
+void CRecyclingSort::sort_ball(int ball) {
+    static auto start = std::chrono::_V2::system_clock::now();
+
+    // if block for executing time-based servo movements
+    if (std::chrono::_V2::system_clock::now() - start > std::chrono::milliseconds(servoEnum::WAIT_TIME*2)) {      // check if waited the full wait time, then reset timer
+        start = std::chrono::_V2::system_clock::now();
+    } else if (std::chrono::_V2::system_clock::now() - start > std::chrono::milliseconds(servoEnum::WAIT_TIME)) { // check if waited half, then set servo to middle pos
+        // set default servo pos
+        gpioServo(servoEnum::CHANNEL_MIDDLE, servoEnum::POS_MIDDLE);
+    } else {                                                                                                      // if below half the wait time, set servo to left or right
+            // pink and yellow go left, blue and green go right
+        if (ball == ballType::PINK || ball == ballType::YELLOW) {
+            gpioServo(servoEnum::CHANNEL_MIDDLE, servoEnum::POS_LEFT);
+        } else if (ball == ballType::BLUE || ball == ballType::GREEN) {
+            gpioServo(servoEnum::CHANNEL_MIDDLE, servoEnum::POS_RIGHT);
+        }
     }
 }
