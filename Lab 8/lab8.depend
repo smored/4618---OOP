@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1647000442 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 7/CControlPi.cpp
+1646618327 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 8/CControlPi.cpp
 	"CControlPi.h"
 
-1646618047 /home/pi/Desktop/OOP4618/4618---OOP/Lab 7/CControlPi.h
+1646618047 /home/pi/Desktop/OOP4618/4618---OOP/Lab 8/CControlPi.h
 	<string>
 	<pigpio.h>
 	<iostream>
@@ -611,54 +611,43 @@
 1608580898 /usr/include/opencv4/opencv2/video/background_segm.hpp
 	"opencv2/core.hpp"
 
-1646438131 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 7/CGameObject.cpp
-	"CGameObject.h"
+1646978201 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 8/main.cpp
+	"cvui.h"
+	"CRecyclingSort.h"
 
-1646438165 /home/pi/Desktop/OOP4618/4618---OOP/Lab 7/CGameObject.h
-	<opencv2/opencv.hpp>
-
-1646438299 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 7/CMissile.cpp
-	"CMissile.h"
-
-1646438298 /home/pi/Desktop/OOP4618/4618---OOP/Lab 7/CMissile.h
-	"CGameObject.h"
-	<opencv2/opencv.hpp>
-
-1646436549 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 7/main.cpp
-	"CAsteroidGame.h"
-
-1645827126 /home/pi/Desktop/OOP4618/4618---OOP/Lab 7/CAsteroidGame.h
-	"CGameObject.h"
+1646980641 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 8/CBase4618.cpp
 	"CBase4618.h"
-	"CShip.h"
-	"CMissile.h"
-	"CAsteroid.h"
 
-1646438470 /home/pi/Desktop/OOP4618/4618---OOP/Lab 7/CBase4618.h
+1646438470 /home/pi/Desktop/OOP4618/4618---OOP/Lab 8/CBase4618.h
 	"CControlPi.h"
 	<thread>
 	<opencv2/opencv.hpp>
 
-1645827126 /home/pi/Desktop/OOP4618/4618---OOP/Lab 7/CShip.h
-	"CGameObject.h"
-	"CMissile.h"
+1647460758 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 8/CRecyclingSort.cpp
+	"CRecyclingSort.h"
+	"cvui.h"
 
-1645827126 /home/pi/Desktop/OOP4618/4618---OOP/Lab 7/CAsteroid.h
-	"CGameObject.h"
-	"CBase4618.h"
-	"CShip.h"
-	"CMissile.h"
-
-1646438075 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 7/CAsteroid.cpp
-	"CAsteroid.h"
-
-1646438470 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 7/CShip.cpp
-	"CShip.h"
+1647462979 /home/pi/Desktop/OOP4618/4618---OOP/Lab 8/CRecyclingSort.h
 	"CBase4618.h"
 
-1646992812 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 7/CBase4618.cpp
-	"CBase4618.h"
+1646977629 /home/pi/Desktop/OOP4618/4618---OOP/Lab 8/cvui.h
+	"cvui.h"
+	<opencv2/opencv.hpp>
+	"cvui.h"
+	<iostream>
+	<vector>
+	<map>
+	<stdarg.h>
+	<opencv2/imgproc/imgproc.hpp>
+	<opencv2/highgui/highgui.hpp>
+	<opencv2/core/core.hpp>
 
-1647001122 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 7/CAsteroidGame.cpp
-	"CAsteroidGame.h"
+1608580898 /usr/include/opencv4/opencv2/imgproc/imgproc.hpp
+	"opencv2/imgproc.hpp"
+
+1608580898 /usr/include/opencv4/opencv2/highgui/highgui.hpp
+	"opencv2/highgui.hpp"
+
+1608580898 /usr/include/opencv4/opencv2/core/core.hpp
+	"opencv2/core.hpp"
 

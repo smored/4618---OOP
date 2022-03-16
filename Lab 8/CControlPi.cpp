@@ -80,7 +80,7 @@ bool CControlPi::get_button(int channel, int BID) {
 float CControlPi::get_analog(int channel) {
 	int result;
 	get_data(ANALOG, channel, result);
-	return (float)result;
+	return (float)result/(MAX_VAL);
 }
 
 void CControlPi::set_servo(int setPos, int channel) {

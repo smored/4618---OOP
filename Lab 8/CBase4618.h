@@ -1,6 +1,7 @@
 #pragma once
-
-#include "CControl.h"
+#include "CControlPi.h"
+#include <thread>
+#include <opencv2/opencv.hpp>
 
 /** CBase4618.h
  *
@@ -13,19 +14,19 @@
  */
 class CBase4618 {
 private:
-	bool _thread_exit = false; ///< condition for multiple threads to be able to exit at the same time 
+	bool _thread_exit = false; ///< condition for multiple threads to be able to exit at the same time
 	void update_thread(); ///< method for multi-threading update() by looping a single thread
 	void draw_thread(); ///< method for multi-threading draw() by looping a single thread
-	double framerate; ///< framerate of the draw method 
+	double framerate; ///< framerate of the draw method
 protected:
-	CControl control; ///< control object for handling all communications with uC
+	CControlPi control; ///< control object for handling all communications with uC
 	cv::Mat _canvas;  ///< Mat object for drawing on and updating to screen
 	const cv::Scalar WHITE = cv::Scalar(255, 255, 255); ///< Default white colour scalar
 	const cv::Scalar RED = cv::Scalar(0, 0, 255); ///< Red colour scalar
 	const cv::Scalar GREEN = cv::Scalar(0, 255, 0); ///< Green colour scalar
 	const cv::Scalar BLUE = cv::Scalar(255, 0, 0); ///< Blue colour scalar
 public:
-	
+
 	/** @brief Class Constructor
 	* @param no parameters
 	* @return no returns
@@ -40,7 +41,7 @@ public:
 
 	/** @brief virtual update method template
 	* @param no parameters
-	* @return void 
+	* @return void
 	**/
 	virtual void update();
 
@@ -67,12 +68,12 @@ public:
 	void ups();
 
 	/** @brief getter for framerate member
-	* 
+	*
 	**/
 	double getfps();
 
 	static void clamp(int& val, int upper, int lower);
 	static void clamp(cv::Point2f& val, int upper, int lower);
-	static cv::Point2f CBase4618::normalizeVec(cv::Point2f vector);
-	static double CBase4618::magnitudeVec(cv::Point2f vector);
+	static cv::Point2f normalizeVec(cv::Point2f vector);
+	static double magnitudeVec(cv::Point2f vector);
 };

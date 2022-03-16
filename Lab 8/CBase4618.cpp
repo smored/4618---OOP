@@ -1,7 +1,7 @@
 #include "CBase4618.h"
 
-#define FPS 60
-#define UPS 60
+#define FPS 999
+#define UPS 999
 
 CBase4618::CBase4618() {
 
@@ -23,7 +23,7 @@ void CBase4618::draw() {
 // Multi-thread implementation
 void CBase4618::run() {
 	using namespace std;
-	_thread_exit = false;
+	/*_thread_exit = false;
 	thread t1(&CBase4618::update_thread, this);
 	thread t2(&CBase4618::draw_thread, this);
 
@@ -31,7 +31,11 @@ void CBase4618::run() {
 
 	_thread_exit = true;
 	t1.join();
-	t2.join();
+	t2.join();*/
+
+	do {
+        draw();
+	} while (cv::waitKey(10) != 'q');
 }
 
 void CBase4618::update_thread() {

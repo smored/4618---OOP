@@ -1,12 +1,12 @@
 #include "CAsteroidGame.h"
 
 #define X_JOYSTICK 1
-#define Y_JOYSTICK 0
+#define Y_JOYSTICK 2
 #define S1 27
 #define S2 22
 #define DEADZONE 5
 
-#define ASTEROID_NUMBER 1
+#define ASTEROID_NUMBER 10
 #define ASTEROID_SIZE 25
 #define SHIP_SIZE 25
 #define MISSILE_SIZE 5
@@ -165,7 +165,8 @@ void CAsteroidGame::movement() {
 	}
 
 	// ship movement
-	cv::Point2f joystickPos = cv::Point2f((float)(control.get_analog(X_JOYSTICK) * 100.0f) - 50.0f, ((float)control.get_analog(Y_JOYSTICK) * -100.0f) + 50.0f);
+	cv::Point2f joystickPos = cv::Point2f((float)(control.get_analog(0), ((float)control.get_analog(1))));
+	std::cout << joystickPos << " joystick pos" << std::endl;
 	if (joystickPos.x > -DEADZONE && joystickPos.x < DEADZONE) {
 		joystickPos.x = 0;
 	}
