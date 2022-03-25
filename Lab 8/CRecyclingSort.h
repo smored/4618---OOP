@@ -17,9 +17,9 @@ enum pins {
 
 enum servoEnum {
  POS_MIDDLE = 1500,
- POS_LEFT = 2400,
- POS_RIGHT = 600,
- WAIT_TIME = 1500
+ POS_LEFT = 2500,
+ POS_RIGHT = 500,
+ WAIT_TIME = 1000
  };
 
 enum ballType {NOTHING, PINK, BLUE, GREEN, YELLOW};
@@ -42,8 +42,8 @@ private:
     const cv::Scalar _green_ball_upper = cv::Scalar(59.3, 255, 255);
     const cv::Scalar _green_ball_lower = cv::Scalar(50, 131.9, 131.9);
 
-    const cv::Scalar _yellow_ball_upper = cv::Scalar(51, 164.6, 163.1);
-    const cv::Scalar _yellow_ball_lower = cv::Scalar(37.5, 68.2, 108.2);
+    const cv::Scalar _yellow_ball_upper = cv::Scalar(39.5, 255, 255);
+    const cv::Scalar _yellow_ball_lower = cv::Scalar(31.2, 207.6, 94.9);
 
     cv::VideoCapture _video;
     cv::Mat _settings, _mask;
@@ -53,6 +53,7 @@ private:
     void ui_elements();
     int segment_image();
     void sort_ball(int ball);
+    void handleIO();
 public:
     CRecyclingSort();
     ~CRecyclingSort();

@@ -2,6 +2,7 @@
 #include <string>
 #include <pigpio.h>
 #include <iostream>
+#include <thread>
 #include <opencv2/opencv.hpp>
 
 #define MAX_VAL (float)((2^10)-1)
@@ -60,7 +61,7 @@ public:
 	* @param BID: specify channel button is on
 	* @return returns debounced digital button boolean
 	**/
-	bool get_button(int channel, int BID);
+	bool get_button(int channel);
 
 	/** @brief Gets analog over serial
 	* @param channel: what pin to use

@@ -118,7 +118,7 @@ int CRecyclingSort::segment_image() {
     cv::rectangle(_canvas, green_rect, cv::Scalar(0,255,0));
 
     cv::inRange(hsv, _yellow_ball_lower, _yellow_ball_upper, _mask);
-    cv::erode(_mask, _mask, cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(7,7)));
+    cv::erode(_mask, _mask, cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(_erodeSize,_erodeSize)));
     cv::Rect yellow_rect = cv::boundingRect(_mask);
     cv::rectangle(_canvas, yellow_rect, cv::Scalar(0,255,255));
 
@@ -145,16 +145,16 @@ void CRecyclingSort::sort_ball(int _ball) {
     static auto ball = _ball;
 
     // if block for executing time-based servo movements
-    if (std::chrono::_V2::system_clock::now() - start > std::chrono::milliseconds(servoEnum::WAIT_TIME)) {        // reset timer
+    if (std::chrono::_V2::system_clock::now() - start > std::chrono::milliseconds(servoEnum::WAIT_TIME*5/2)) {        // reset timer
         start = std::chrono::_V2::system_clock::now();
         ball = _ball;
         manualsort = -1; // tell system manual sort is completed
-    } else if (std::chrono::_V2::system_clock::now() - start > std::chrono::milliseconds(servoEnum::WAIT_TIME*2/3)) { // reset servos to middle pos
+    } else if (std::chrono::_V2::system_clock::now() - start > std::chrono::milliseconds(servoEnum::WAIT_TIME*3/2)) { // reset servos to middle pos
         // set default servo pos
         gpioServo(pins::SERVO_MIDDLE, servoEnum::POS_MIDDLE);
         gpioServo(pins::SERVO_LEFT, servoEnum::POS_MIDDLE);
         gpioServo(pins::SERVO_RIGHT, servoEnum::POS_MIDDLE);
-    } else if (std::chrono::_V2::system_clock::now() - start > std::chrono::milliseconds(servoEnum::WAIT_TIME/3)) {   // set left/right servo
+    } else if (std::chrono::_V2::system_clock::now() - start > std::chrono::milliseconds(servoEnum::WAIT_TIME)) {   // set left/right servo
         if (ball == ballType::PINK) {              // pink goes left, yellow goes right
                 gpioServo(pins::SERVO_LEFT, servoEnum::POS_LEFT);
             } else if (ball == ballType::YELLOW) {
@@ -174,24 +174,27 @@ void CRecyclingSort::sort_ball(int _ball) {
     }
 }
 
-void handleIO() {
+void CRecyclingSort::handleIO() {
     // get pushbutton states
-    if (control.get_button(pins::BUTTON_LEFT) || cv::waitKey(10) == '1') { // sort ball to left
-        manualsort = ballType::BLUE;
-    } else if (control.get_button(pins::BUTTON_RIGHT) || cv::waitKey(10) == '2') { //sort ball to right
-        manualsort = ballType::YELLOW;
-    } else if (control.get_button(pins::BUTTON_MIDDLE) || cv::waitKey(10) == 's') { // toggle system on/off
+    char keypress = cv::waitKey(10);
+    if (control.get_button(pins::BUTTON_LEFT) || keypress == '1') { // sort ball to left
+        manualsort = ballType::GREEN;
+    } else if (control.get_button(pins::BUTTON_RIGHT) || keypress == '2') { //sort ball to right
+        manualsort = ballType::PINK;
+    } else if (control.get_button(pins::BUTTON_MIDDLE) || keypress == 's') { // toggle system on/off
         enabled ^= 1;
-        gpioWrite(pins::LED_MIDDLE, unsigned int enabled);
+        gpioWrite(pins::LED_MIDDLE, enabled);
     }
     // write LED states
-    if (manualsort == ballType::BLUE) {
+    if (manualsort == ballType::GREEN) {
         gpioWrite(pins::LED_LEFT, PI_HIGH);
         gpioWrite(pins::LED_RIGHT, PI_LOW);
-    } else if (manualsort == ballType::YELLOW) {
+    } else if (manualsort == ballType::PINK) {
         gpioWrite(pins::LED_RIGHT, PI_HIGH);
         gpioWrite(pins::LED_LEFT, PI_LOW);
-    } else {
+    }
+
+    if (enabled) {
         gpioWrite(pins::LED_RIGHT, PI_LOW);
         gpioWrite(pins::LED_LEFT, PI_LOW);
     }

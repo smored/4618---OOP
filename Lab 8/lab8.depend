@@ -1,11 +1,12 @@
 # depslib dependency file v1.0
-1647463918 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 8/CControlPi.cpp
+1648182835 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 8/CControlPi.cpp
 	"CControlPi.h"
 
-1648172125 /home/pi/Desktop/OOP4618/4618---OOP/Lab 8/CControlPi.h
+1648181862 /home/pi/Desktop/OOP4618/4618---OOP/Lab 8/CControlPi.h
 	<string>
 	<pigpio.h>
 	<iostream>
+	<thread>
 	<opencv2/opencv.hpp>
 
 1608580898 /usr/include/opencv4/opencv2/opencv.hpp
@@ -623,11 +624,11 @@
 	<thread>
 	<opencv2/opencv.hpp>
 
-1648171006 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 8/CRecyclingSort.cpp
+1648191476 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 8/CRecyclingSort.cpp
 	"CRecyclingSort.h"
 	"cvui.h"
 
-1648170709 /home/pi/Desktop/OOP4618/4618---OOP/Lab 8/CRecyclingSort.h
+1648192444 /home/pi/Desktop/OOP4618/4618---OOP/Lab 8/CRecyclingSort.h
 	"CBase4618.h"
 
 1646977629 /home/pi/Desktop/OOP4618/4618---OOP/Lab 8/cvui.h
@@ -650,4 +651,31 @@
 
 1608580898 /usr/include/opencv4/opencv2/core/core.hpp
 	"opencv2/core.hpp"
+
+1646438470 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 8/CBase4618.h
+	"CControlPi.h"
+	<thread>
+	<opencv2/opencv.hpp>
+
+1648191392 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 8/CRecyclingSort.h
+	"CBase4618.h"
+
+1648181862 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 8/CControlPi.h
+	<string>
+	<pigpio.h>
+	<iostream>
+	<thread>
+	<opencv2/opencv.hpp>
+
+1646977629 source:/home/pi/Desktop/OOP4618/4618---OOP/Lab 8/cvui.h
+	"cvui.h"
+	<opencv2/opencv.hpp>
+	"cvui.h"
+	<iostream>
+	<vector>
+	<map>
+	<stdarg.h>
+	<opencv2/imgproc/imgproc.hpp>
+	<opencv2/highgui/highgui.hpp>
+	<opencv2/core/core.hpp>
 

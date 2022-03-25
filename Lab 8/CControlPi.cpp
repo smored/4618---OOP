@@ -53,20 +53,23 @@ bool CControlPi::set_data(int type, int channel, int val) {
     }
 }
 
-bool CControlPi::get_button(int channel, int BID) {
+bool CControlPi::get_button(int channel) {
 
 	static bool reset[] = {0,0,0};
+	static auto start = std::chrono::_V2::system_clock::now();
 	int result;
 	bool isPressed;
 
 	get_data(DIGITAL, channel, result); isPressed = result == 0;
 
-	if (isPressed) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
-        return true;
-	} else {
-        return false;
+	if (std::chrono::_V2::system_clock::now() - start > std::chrono::milliseconds(250)) {
+        if (isPressed) {
+        start = std::chrono::_V2::system_clock::now();
+            return true;
+        }
 	}
+
+	return false;
 
     /*
 	if (!reset[BID]) {
