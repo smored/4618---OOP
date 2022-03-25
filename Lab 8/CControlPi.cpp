@@ -55,12 +55,20 @@ bool CControlPi::set_data(int type, int channel, int val) {
 
 bool CControlPi::get_button(int channel, int BID) {
 
-	static bool reset[] = {0,0};
+	static bool reset[] = {0,0,0};
 	int result;
 	bool isPressed;
 
 	get_data(DIGITAL, channel, result); isPressed = result == 0;
 
+	if (isPressed) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        return true;
+	} else {
+        return false;
+	}
+
+    /*
 	if (!reset[BID]) {
 		if (isPressed) {
 			reset[BID] = true;
@@ -74,6 +82,7 @@ bool CControlPi::get_button(int channel, int BID) {
 	}
 
 	return false;
+	*/
 }
 
 // Return as a percentage of full range

@@ -1,19 +1,34 @@
 #pragma once
 #include "CBase4618.h"
 
+enum pins {
+ BUTTON_LEFT = 23,
+ BUTTON_MIDDLE = 24,
+ BUTTON_RIGHT = 25,
+
+ LED_LEFT = 8,
+ LED_MIDDLE = 7,
+ LED_RIGHT = 12,
+
+ SERVO_LEFT = 16,
+ SERVO_MIDDLE = 21,
+ SERVO_RIGHT = 20
+};
+
 enum servoEnum {
- CHANNEL_MIDDLE = 18,
- CHANNEL_LEFT = 9999,
- CHANNEL_RIGHT = 9999,
  POS_MIDDLE = 1500,
- POS_LEFT = 600,
- POS_RIGHT = 2400,
- WAIT_TIME = 500
+ POS_LEFT = 2400,
+ POS_RIGHT = 600,
+ WAIT_TIME = 1500
  };
+
 enum ballType {NOTHING, PINK, BLUE, GREEN, YELLOW};
 
 class CRecyclingSort : public CBase4618 {
 private:
+    bool enabled = false;
+    int manualsort = -1;
+
     cv::Scalar _bound_upper = cv::Scalar(179,255,255);
     cv::Scalar _bound_lower = cv::Scalar(0,0,0);
     double _erodeSize = 7;
