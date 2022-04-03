@@ -39,9 +39,49 @@ CRecyclingSort::CRecyclingSort() {
     gpioSetPullUpDown(pins::BUTTON_MIDDLE, PI_PUD_UP);
     gpioSetMode(pins::BUTTON_RIGHT, PI_INPUT);
     gpioSetPullUpDown(pins::BUTTON_RIGHT, PI_PUD_UP);
+	
+	// Start Server Threads
+	std::thread t1(&serverReceive); // receive commands from client
+	t1.detach();
+	std::thread t2(&serverSendIm); // send images repeatedly to client
+	t2.detach();
+	std::thread t3(&serverThread); // run the server thread
+	t3.detach();
+}
+
+void CRecyclingSort::serverReceive() {
+	std::vector<std::string> cmds;
+	
+	do {
+		server.get_cmd(cmds);
+		if (cmds.size() > 0) {
+			//for (int i = 0; i < cmds.size(); i++) {
+				//if (cmds.at(i) == CMDS::TOGGLE) {
+					std::cout << cmds;
+				//}
+			//}
+		}
+	} while (!isExit());
+}
+
+void CRecyclingSort::serverSendIm() {
+	if (video.isOpened()) {
+		do {
+			if (!_canvas.empty()) {
+				// process message??
+				server.set_txim(_canvas);
+			}
+		}
+		while (!isExit());
+	}
+}
+
+void CRecyclingSort::serverThread() {
+	server.start(4618);
 }
 
 CRecyclingSort::~CRecyclingSort() {
+server.stop();
 //close video capture
 _video.release();
 cv::destroyAllWindows();
@@ -123,19 +163,19 @@ int CRecyclingSort::segment_image() {
     cv::rectangle(_canvas, yellow_rect, cv::Scalar(0,255,255));
 
     if (pink_rect.area() > RECT_AREA_POSITIVE) {
-        std::cout << "PINK BALL DETECTED" << std::endl;
+        //std::cout << "PINK BALL DETECTED" << std::endl;
         return ballType::PINK;
     } else if (blue_rect.area() > RECT_AREA_POSITIVE) {
-        std::cout << "BLUE BALL DETECTED" << std::endl;
+        //std::cout << "BLUE BALL DETECTED" << std::endl;
         return ballType::BLUE;
     } else if (green_rect.area() > RECT_AREA_POSITIVE) {
-        std::cout << "GREEN BALL DETECTED" << std::endl;
+        //std::cout << "GREEN BALL DETECTED" << std::endl;
         return ballType::GREEN;
     } else if (yellow_rect.area() > RECT_AREA_POSITIVE) {
-        std::cout << "YELLOW BALL DETECTED" << std::endl;
+        //std::cout << "YELLOW BALL DETECTED" << std::endl;
         return ballType::YELLOW;
     } else {
-        std::cout << "NOTHING DETECTED" << std::endl;
+        //std::cout << "NOTHING DETECTED" << std::endl;
         return ballType::NOTHING;
     }
 }

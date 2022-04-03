@@ -1,5 +1,12 @@
 #pragma once
+#include "Server.h"
 #include "CBase4618.h"
+
+enum CMDS {
+ TOGGLE = 't',
+ LEFT = 'l',
+ RIGHT = 'r'
+ };
 
 enum pins {
  BUTTON_LEFT = 23,
@@ -26,6 +33,8 @@ enum ballType {NOTHING, PINK, BLUE, GREEN, YELLOW};
 
 class CRecyclingSort : public CBase4618 {
 private:
+	Server server;
+
     bool enabled = false;
     int manualsort = -1;
 

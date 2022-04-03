@@ -26,7 +26,9 @@ protected:
 	const cv::Scalar GREEN = cv::Scalar(0, 255, 0); ///< Green colour scalar
 	const cv::Scalar BLUE = cv::Scalar(255, 0, 0); ///< Blue colour scalar
 public:
-
+	
+	bool isExit() = {return _thread_exit;}
+	
 	/** @brief Class Constructor
 	* @param no parameters
 	* @return no returns
