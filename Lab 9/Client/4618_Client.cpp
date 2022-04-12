@@ -8,11 +8,21 @@
 #include <string>
 #include <iostream>
 #include <thread>
-
+#include <regex>
 #include "Client.h"
 
-Client client(4618, "10.0.0.134");
+Client client(4618, "192.168.102.175");
 std::mutex txLock;
+
+void process_msg()
+{
+	MSG msg;
+	while (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+	{
+		::TranslateMessage(&msg);
+		::DispatchMessage(&msg);
+	}
+}
 
 void print_menu()
 {
@@ -27,6 +37,26 @@ void print_menu()
 	std::cout << "\n(0) Exit";
 	std::cout << "\nCMD> ";
 }
+
+/* ------ - NYI--------
+std::string get_rx() {
+	bool rx_success = false;
+	std::string rx_str = "";
+
+	do {
+		client.tx_str("req");
+		client.rx_str(rx_str);
+		if (!std::regex_search(rx_str, std::regex(",")) || !std::regex_search(rx_str, std::regex(";"))) {
+			std::cout << "\nInvalid String... Trying Again\n";
+			continue;
+		}
+		else {
+			std::cout << "\nSuccessful String Match\n";
+			return rx_str;
+		}
+		//std::this_thread::sleep_for(std::chrono::milliseconds(50));
+	} while (!rx_success);
+}*/
 
 void count_ball(std::string input) {
 	int delimit1 = -1, delimit2 = -1, delimit3 = -1;
@@ -112,7 +142,7 @@ void get_image()
 	bool rx_success = true;
 
   do {
-
+	 
 	  if (rx_success) {
 		  txLock.lock();
 		  client.tx_str("im");
@@ -170,5 +200,4 @@ int main(int argc, char* argv[])
 		}
 	} while (cmd != 0);
 
-	//count_ball("18;25,34\n");
 }
